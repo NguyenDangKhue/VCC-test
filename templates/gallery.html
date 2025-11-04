@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Danh mục hình ảnh - Viettel Construction Lâm Đồng{% endblock %}
+{% block content %}
+<section class="page-header text-white">
+  <div class="container py-5">
+    <h1 class="fw-bold">Danh mục hình ảnh</h1>
+    <p class="mb-0">Những khoảnh khắc đáng nhớ từ dự án của chúng tôi.</p>
+  </div>
+  <div class="hero-gradient"></div>
+  </section>
+
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4">
+      {% for img in images %}
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card gallery-card">
+          <div class="ratio ratio-1x1 bg-light">
+            <img src="{{ url_for('static', filename=img) }}" class="object-cover rounded" alt="Hình ảnh dự án">
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  </section>
+{% endblock %}
+
+

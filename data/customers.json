@@ -1,0 +1,60 @@
+[
+  {
+    "ma_khach_hang": "DL01",
+    "ho_ten": "Nguyễn Viết Mộc",
+    "so_dien_thoai": "0913133414",
+    "dia_chi": "45 Lữ gia, phường Lâm Viên - Đà Lạt, Lâm Đồng",
+    "dia_chi_thi_cong": "45 Lữ gia, phường Lâm Viên - Đà Lạt, Lâm Đồng",
+    "loai_cong_trinh_a": "Nhà phố",
+    "loai_cong_trinh_b": "Trọn gói - chìa khóa trao tay",
+    "thoi_gian_du_kien": "8/2025",
+    "quy_mo_ngan_sach": "3 tỷ",
+    "phan_cap_tiem_nang": "Cấp 1: rất tiềm năng, đang cần gấp",
+    "giai_doan_thuc_hien": "Ký hợp đồng thi công",
+    "consultations": [
+      {
+        "id": "03a5bb2b74f745369fa81732ecf049b2",
+        "tieu_de": "Yêu cầu sửa bản vẽ bố trí mặt bằng",
+        "nhan_vien": "Khuê",
+        "thoi_han": "2025-11-04T15:19",
+        "ghi_chu": "Thay đổi kích thước toilet, thêm cửa sổ, mở rộng cửa ra vào",
+        "trang_thai": "hoan_thanh",
+        "created_at": "2025-11-04T15:17:20",
+        "accepted_at": "2025-11-04T15:21:45",
+        "completed_at": "2025-11-04T15:22:03",
+        "attachments": [
+          {
+            "filename": "Generated_Image_October_23_2025_-_5_25PM.png",
+            "path": "DL01/03a5bb2b74f745369fa81732ecf049b2/Generated_Image_October_23_2025_-_5_25PM.png",
+            "uploaded_at": "2025-11-04T15:31:09",
+            "uploader": "Khuê"
+          }
+        ],
+        "accepted_by": "Khuê",
+        "completed_by": "Khuê",
+        "ket_qua": "Khách hàng đã đồng ý phương án sửa đổi và tư vấn"
+      },
+      {
+        "id": "abe251b5db144d499be5367f24a4b208",
+        "tieu_de": "yêu cầu thay đổi vị trí cửa",
+        "nhan_vien": "Khuê",
+        "thoi_han": "2025-11-04T15:39",
+        "ghi_chu": "Vị trí cửa cần được đưa sang bên hông",
+        "trang_thai": "hoan_thanh",
+        "created_at": "2025-11-04T15:38:47",
+        "accepted_at": null,
+        "completed_at": "2025-11-04T15:39:02",
+        "attachments": [
+          {
+            "filename": "Web_VCC.drawio.png",
+            "path": "DL01/abe251b5db144d499be5367f24a4b208/Web_VCC.drawio.png",
+            "uploaded_at": "2025-11-04T15:39:26",
+            "uploader": "admin"
+          }
+        ],
+        "completed_by": "Khuê",
+        "ket_qua": "Đã tư vấn khách hàng không thể đổi do vướng cột, khách hàng đã đồng ý"
+      }
+    ]
+  }
+]

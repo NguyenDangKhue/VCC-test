@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: viettel-construction-web
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn "app:create_app()"
+    envVars:
+      - key: APP_SECRET_KEY
+        generateValue: true
+      - key: PYTHON_VERSION
+        value: 3.11.9
+    disk:
+      name: app-data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1
+
+

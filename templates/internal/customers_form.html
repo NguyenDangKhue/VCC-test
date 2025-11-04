@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block title %}Nội bộ - {{ 'Thêm' if mode=='create' else 'Sửa' }} khách hàng{% endblock %}
+{% block content %}
+<section class="page-header text-white">
+  <div class="container py-5">
+    <h1 class="fw-bold">{{ 'Thêm' if mode=='create' else 'Sửa' }} khách hàng</h1>
+  </div>
+  <div class="hero-gradient"></div>
+</section>
+
+<section class="py-4">
+  <div class="container" style="max-width: 880px;">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <form method="post">
+          {% if mode=='create' %}
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label">Mã Khách hàng</label>
+              <input name="ma_khach_hang" class="form-control" required>
+            </div>
+            <div class="col-md-8">
+              <label class="form-label">Họ và tên khách hàng</label>
+              <input name="ho_ten" class="form-control" required>
+            </div>
+          </div>
+          {% else %}
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label class="form-label">Mã Khách hàng</label>
+              <input class="form-control" value="{{ customer.ma_khach_hang }}" disabled>
+            </div>
+            <div class="col-md-8">
+              <label class="form-label">Họ và tên khách hàng</label>
+              <input name="ho_ten" class="form-control" value="{{ customer.ho_ten }}" required>
+            </div>
+          </div>
+          {% endif %}
+
+          <div class="row g-3 mt-1">
+            <div class="col-md-4">
+              <label class="form-label">Số điện thoại</label>
+              <input name="so_dien_thoai" class="form-control" value="{{ customer.so_dien_thoai }}">
+            </div>
+            <div class="col-md-8">
+              <label class="form-label">Địa chỉ</label>
+              <input name="dia_chi" class="form-control" value="{{ customer.dia_chi }}">
+            </div>
+          </div>
+
+          <div class="row g-3 mt-1">
+            <div class="col-md-12">
+              <label class="form-label">Địa chỉ thi công</label>
+              <input name="dia_chi_thi_cong" class="form-control" value="{{ customer.dia_chi_thi_cong }}">
+            </div>
+          </div>
+
+          <div class="row g-3 mt-1">
+            <div class="col-md-6">
+              <label class="form-label">Loại công trình (A)</label>
+              <select name="loai_cong_trinh_a" class="form-select">
+                {% for x in TYPES_A %}
+                <option value="{{ x }}" {% if customer.loai_cong_trinh_a==x %}selected{% endif %}>{{ x }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Loại công trình (B)</label>
+              <select name="loai_cong_trinh_b" class="form-select">
+                {% for x in TYPES_B %}
+                <option value="{{ x }}" {% if customer.loai_cong_trinh_b==x %}selected{% endif %}>{{ x }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <div class="row g-3 mt-1">
+            <div class="col-md-6">
+              <label class="form-label">Thời gian dự kiến xây dựng</label>
+              <input name="thoi_gian_du_kien" class="form-control" placeholder="VD: Quý 1/2026" value="{{ customer.thoi_gian_du_kien }}">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Quy mô ngân sách</label>
+              <input name="quy_mo_ngan_sach" class="form-control" placeholder="VD: 500 triệu - 1 tỷ" value="{{ customer.quy_mo_ngan_sach }}">
+            </div>
+          </div>
+
+          <div class="row g-3 mt-1">
+            <div class="col-md-6">
+              <label class="form-label">Phân cấp khách hàng tiềm năng</label>
+              <select name="phan_cap_tiem_nang" class="form-select">
+                {% for x in TIEM_NANG %}
+                <option value="{{ x }}" {% if customer.phan_cap_tiem_nang==x %}selected{% endif %}>{{ x }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Giai đoạn thực hiện</label>
+              <select name="giai_doan_thuc_hien" class="form-select">
+                {% for x in GIAI_DOAN %}
+                <option value="{{ x }}" {% if customer.giai_doan_thuc_hien==x %}selected{% endif %}>{{ x }}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <div class="mt-4 d-flex gap-2">
+            <button class="btn btn-brand" type="submit">Lưu</button>
+            <a class="btn btn-outline-secondary" href="{{ url_for('customers_list') }}">Hủy</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </section>
+{% endblock %}
+
+

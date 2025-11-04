@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Trang chủ - Viettel Construction Lâm Đồng{% endblock %}
+{% block content %}
+
+<section class="hero-section text-center text-white d-flex align-items-center">
+  <div class="container">
+    <h1 class="display-5 fw-bold">Kiến tạo hạ tầng số, bền vững tương lai</h1>
+    <p class="lead mt-3 mb-4">Viettel Construction - Chi nhánh Lâm Đồng cung cấp giải pháp hạ tầng viễn thông, năng lượng xanh và toà nhà thông minh.</p>
+    <div>
+      <a href="{{ url_for('products') }}" class="btn btn-light btn-lg me-2">Khám phá sản phẩm</a>
+      <a href="{{ url_for('gallery') }}" class="btn btn-outline-light btn-lg">Xem hình ảnh</a>
+    </div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-gradient"></div>
+  </section>
+
+<section class="features py-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="feature-card card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Hạ tầng viễn thông</h5>
+            <p class="card-text">Thi công, vận hành và bảo trì hệ thống mạng viễn thông với tiêu chuẩn chất lượng cao.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Năng lượng xanh</h5>
+            <p class="card-text">Giải pháp điện mặt trời tối ưu chi phí, thân thiện với môi trường cho doanh nghiệp và hộ gia đình.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Tòa nhà thông minh</h5>
+            <p class="card-text">Hệ thống IoT, an ninh, M&E tích hợp, nâng cao trải nghiệm và tối ưu vận hành.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+{% endblock %}
+
+

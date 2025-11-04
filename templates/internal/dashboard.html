@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block title %}Nội bộ - Bảng điều khiển{% endblock %}
+{% block content %}
+<section class="page-header text-white">
+  <div class="container py-5">
+    <h1 class="fw-bold">Khu vực nội bộ</h1>
+    <p class="mb-0">Chào {{ auth_user.full_name or auth_user.username }}.</p>
+  </div>
+  <div class="hero-gradient"></div>
+</section>
+
+<section class="py-5">
+  <div class="container">
+    {% if my_tasks is defined %}
+    <div class="mb-4">
+      <h5 class="mb-3">Công việc của tôi</h5>
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table align-middle mb-0">
+              <thead>
+                <tr>
+                  <th>Khách hàng</th>
+                  <th>Tiêu đề</th>
+                  <th>Trạng thái</th>
+                  <th>Hạn</th>
+                  <th class="text-end">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for t in my_tasks %}
+                <tr>
+                  <td><a href="{{ url_for('customers_detail', ma_kh=t.customer_id) }}">{{ t.customer_name }}</a></td>
+                  <td>{{ t.title }}</td>
+                  <td>
+                    {% if t.status=='cho_xac_nhan' %}
+                      <span class="badge bg-warning text-dark">Chờ xác nhận</span>
+                    {% elif t.status=='dang_xu_ly' %}
+                      <span class="badge bg-primary">Đang xử lý</span>
+                    {% else %}
+                      <span class="badge bg-secondary">-</span>
+                    {% endif %}
+                  </td>
+                  <td>{{ t.due or '-' }}</td>
+                  <td class="text-end">
+                    {% if t.status=='cho_xac_nhan' %}
+                    <form class="d-inline-block" method="post" action="{{ url_for('consultation_accept', ma_kh=t.customer_id, consult_id=t.consult_id) }}">
+                      <button class="btn btn-sm btn-outline-primary">Nhận việc</button>
+                    </form>
+                    {% endif %}
+                    <form class="d-inline-block ms-2" method="post" action="{{ url_for('consultation_complete', ma_kh=t.customer_id, consult_id=t.consult_id) }}">
+                      <button class="btn btn-sm btn-outline-success">Hoàn thành</button>
+                    </form>
+                  </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="5" class="text-center text-muted">Hiện chưa có công việc mới.</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    <div class="row g-4">
+      {% if auth_user and auth_user.role == 'admin' %}
+      <div class="col-md-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Quản lý người dùng</h5>
+            <p class="card-text">Quyền truy cập và thông tin người dùng nội bộ.</p>
+            <a href="{{ url_for('users_list') }}" class="btn btn-brand">Đi đến</a>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      <div class="col-md-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">Thông tin khách hàng</h5>
+            <p class="card-text">Quản lý danh sách, cập nhật và theo dõi trạng thái.</p>
+            <a href="{{ url_for('customers_list') }}" class="btn btn-brand">Đi đến</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+{% endblock %}
+
+

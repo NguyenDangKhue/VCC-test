@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Nội bộ - Quản lý người dùng{% endblock %}
+{% block content %}
+<section class="page-header text-white">
+  <div class="container py-5">
+    <h1 class="fw-bold">Quản lý người dùng</h1>
+    <p class="mb-0">Tạo mới, kích hoạt/vô hiệu hoá, đặt lại mật khẩu, xoá.</p>
+  </div>
+  <div class="hero-gradient"></div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="row g-4">
+      <div class="col-lg-5">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title">Tạo người dùng</h5>
+            <form method="post" action="{{ url_for('users_create') }}">
+              <div class="mb-3">
+                <label class="form-label">Tài khoản</label>
+                <input name="username" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Họ tên</label>
+                <input name="full_name" class="form-control">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Vai trò</label>
+                <select name="role" class="form-select">
+                  <option value="user">User</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Mật khẩu</label>
+                <input type="password" name="password" class="form-control" required>
+              </div>
+              <button class="btn btn-brand" type="submit">Tạo</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title">Danh sách</h5>
+            <div class="table-responsive">
+              <table class="table align-middle">
+                <thead>
+                  <tr>
+                    <th>Tài khoản</th>
+                    <th>Họ tên</th>
+                    <th>Vai trò</th>
+                    <th>Trạng thái</th>
+                    <th class="text-end">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for u in users %}
+                  <tr>
+                    <td>{{ u.username }}</td>
+                    <td>{{ u.full_name }}</td>
+                    <td><span class="badge bg-{{ 'danger' if u.role=='admin' else 'secondary' }}">{{ u.role }}</span></td>
+                    <td>{{ 'Hoạt động' if u.active else 'Vô hiệu' }}</td>
+                    <td class="text-end">
+                      <form method="post" action="{{ url_for('users_reset_password', username=u.username) }}" class="d-inline-flex gap-2">
+                        <input type="hidden" name="new_password" value="123456">
+                        <button class="btn btn-sm btn-outline-primary" {% if u.username=='admin' %}title="Đặt lại về 123456"{% endif %}>Đặt lại MK</button>
+                      </form>
+                      {% if u.username != 'admin' %}
+                      <form method="post" action="{{ url_for('users_delete', username=u.username) }}" class="d-inline-block ms-2" onsubmit="return confirm('Xoá người dùng này?');">
+                        <button class="btn btn-sm btn-outline-danger">Xoá</button>
+                      </form>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+{% endblock %}
+
+

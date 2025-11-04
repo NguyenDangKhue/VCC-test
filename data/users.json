@@ -1,0 +1,20 @@
+{
+  "admin": {
+    "password": "scrypt:32768:8:1$mTJ2CoirCvdGPRkO$a9005dedbfd08c3a924786b71127bae32a65235e130991ceee1f67dbc5d717509cb110115550827524b553f17ee51cbd5af5cb6b3a56b86cc318e30756c21226",
+    "role": "admin",
+    "full_name": "Administrator",
+    "active": true
+  },
+  "Trung": {
+    "password": "scrypt:32768:8:1$Lnf6vEA4p9J7h4T6$150f75349b8e64535f1b80f1e0ea473440200105c845a1819d160f2c8768721817a6eb8045e9a292603745c855142754f50b0cd4e6e42539d552e4f64adebf96",
+    "role": "admin",
+    "full_name": "Võ Bảo Trung",
+    "active": true
+  },
+  "Khuê": {
+    "password": "scrypt:32768:8:1$avyqb38EQliwixld$db6ed1e070bd18906829c9c9e3aafe3695cecf6b4991473da2b4d1ff4515e99cd987e0d2704b466923c8ec384d7ce75ab508eacc579af6f7a45857814a577ef7",
+    "role": "user",
+    "full_name": "Nguyễn Đăng Khuê",
+    "active": true
+  }
+}

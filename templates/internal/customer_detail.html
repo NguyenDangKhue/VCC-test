@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+{% block title %}Khách hàng {{ customer.ho_ten }} - Lịch sử tư vấn{% endblock %}
+{% block content %}
+<section class="page-header text-white">
+  <div class="container py-5">
+    <h1 class="fw-bold">{{ customer.ho_ten }} <span class="fs-5 fw-normal">({{ customer.ma_khach_hang }})</span></h1>
+    <p class="mb-0">SĐT: {{ customer.so_dien_thoai }} • Địa chỉ: {{ customer.dia_chi }}</p>
+  </div>
+  <div class="hero-gradient"></div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="row g-4">
+      {% if auth_user and auth_user.role == 'admin' %}
+      <div class="col-lg-5">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title">Tạo yêu cầu tư vấn</h5>
+            <form method="post" action="{{ url_for('consultation_create', ma_kh=customer.ma_khach_hang) }}">
+              <div class="mb-3">
+                <label class="form-label">Tiêu đề yêu cầu</label>
+                <input name="tieu_de" class="form-control" placeholder="VD: Tư vấn gói hoàn thiện tầng 2">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Nhân viên thực hiện</label>
+                <select name="nhan_vien" class="form-select">
+                  <option value="">-- Chọn nhân viên --</option>
+                  {% for uname, u in users.items() %}
+                  <option value="{{ uname }}">{{ u.full_name or uname }} ({{ u.role }})</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Thời hạn hoàn thành</label>
+                <input name="thoi_han" class="form-control" type="datetime-local">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Ghi chú</label>
+                <textarea name="ghi_chu" class="form-control" rows="3"></textarea>
+              </div>
+              <button class="btn btn-brand" type="submit">Tạo yêu cầu</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7">
+      {% else %}
+      <div class="col-12">
+      {% endif %}
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title">Lịch sử tư vấn</h5>
+            <div class="table-responsive">
+              <table class="table align-middle">
+                <thead>
+                  <tr>
+                    <th>Tiêu đề</th>
+                    <th>Nhân viên</th>
+                    <th>Trạng thái</th>
+                    <th>Thời hạn</th>
+                    <th class="text-end">Thao tác</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for it in customer.consultations %}
+                  {% set rid = 'att-' ~ it.id %}
+                  <tr class="border-top">
+                    <td>
+                      <div class="fw-semibold">{{ it.tieu_de }}</div>
+                      <div class="text-muted small">{{ it.ghi_chu }}</div>
+                      <div class="text-muted small">Tạo: {{ it.created_at or '-' }}</div>
+                    </td>
+                    <td>{{ it.nhan_vien or '-' }}</td>
+                    <td>
+                      {% if it.trang_thai=='cho_xac_nhan' %}
+                        <span class="badge bg-warning text-dark">Chờ xác nhận</span>
+                      {% elif it.trang_thai=='dang_xu_ly' %}
+                        <span class="badge bg-primary">Đang xử lý</span>
+                      {% elif it.trang_thai=='hoan_thanh' %}
+                        <span class="badge bg-success">Hoàn thành</span>
+                      {% else %}
+                        <span class="badge bg-secondary">-</span>
+                      {% endif %}
+                    </td>
+                    <td>{{ it.thoi_han or '-' }}</td>
+                    <td class="text-end">
+                      <button class="btn btn-sm btn-outline-secondary me-2" type="button" data-bs-toggle="collapse" data-bs-target="#{{ rid }}" aria-expanded="false" aria-controls="{{ rid }}">
+                        Chi tiết & Tệp đính kèm ({% if it.attachments %}{{ it.attachments|length }}{% else %}0{% endif %})
+                      </button>
+                      {% if it.trang_thai=='cho_xac_nhan' %}
+                      <form method="post" action="{{ url_for('consultation_accept', ma_kh=customer.ma_khach_hang, consult_id=it.id) }}" class="d-inline-block">
+                        <button class="btn btn-sm btn-outline-primary">Nhận việc</button>
+                      </form>
+                      {% endif %}
+                      {% if it.trang_thai in ['cho_xac_nhan','dang_xu_ly'] %}
+                      <form method="post" action="{{ url_for('consultation_complete', ma_kh=customer.ma_khach_hang, consult_id=it.id) }}" class="d-inline-block ms-2">
+                        <button class="btn btn-sm btn-outline-success">Hoàn thành</button>
+                      </form>
+                      {% endif %}
+                    </td>
+                  </tr>
+                  <tr class="bg-light">
+                    <td colspan="5">
+                      <div class="collapse" id="{{ rid }}">
+                        <div class="py-3">
+                          <div class="mb-3">
+                            <label class="form-label">Ghi chú kết quả thực hiện</label>
+                            <form method="post" action="{{ url_for('consultation_update_result', ma_kh=customer.ma_khach_hang, consult_id=it.id) }}" class="d-flex gap-2">
+                              <textarea name="ket_qua" class="form-control" rows="2" placeholder="VD: Đã tư vấn gói A, khách đồng ý phương án 2...">{{ it.ket_qua }}</textarea>
+                              <button class="btn btn-brand" type="submit">Lưu</button>
+                            </form>
+                          </div>
+                          <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                        <div class="flex-grow-1">
+                          <strong>Tệp đính kèm:</strong>
+                          {% if it.attachments and it.attachments|length > 0 %}
+                            <div class="d-flex flex-wrap gap-3 mt-2">
+                              {% for f in it.attachments %}
+                                {% set sub = f.path.replace('\\', '/').replace('uploads/', '') %}
+                                {% set url = url_for('serve_upload', subpath=sub) %}
+                                {% set is_img = f.filename.lower().endswith(('.png','.jpg','.jpeg','.gif','.webp','.jfif')) %}
+                                <div class="border rounded p-2 bg-white" style="width: 180px;">
+                                  {% if is_img %}
+                                    <a href="{{ url }}" target="_blank" class="d-block mb-2">
+                                      <img src="{{ url }}" alt="{{ f.filename }}" class="img-fluid rounded" style="max-height: 120px; object-fit: cover; width: 100%;">
+                                    </a>
+                                  {% else %}
+                                    <div class="small text-muted mb-2">Tệp</div>
+                                  {% endif %}
+                                  <div class="small text-truncate" title="{{ f.filename }}">{{ f.filename }}</div>
+                                  <div class="d-flex flex-wrap gap-2 mt-2">
+                                    <a class="btn btn-sm btn-outline-secondary" href="{{ url }}" target="_blank">Xem</a>
+                                    <a class="btn btn-sm btn-brand" href="{{ url }}?download=1">Tải</a>
+                                    <form method="post" action="{{ url_for('consultation_delete_attachment', ma_kh=customer.ma_khach_hang, consult_id=it.id) }}" onsubmit="return confirm('Xoá tệp này?');">
+                                      <input type="hidden" name="path" value="{{ sub }}">
+                                      <button class="btn btn-sm btn-outline-danger" type="submit">Xoá</button>
+                                    </form>
+                                  </div>
+                                </div>
+                              {% endfor %}
+                            </div>
+                          {% else %}
+                            <span class="text-muted small">Chưa có</span>
+                          {% endif %}
+                        </div>
+                          <form method="post" action="{{ url_for('consultation_upload', ma_kh=customer.ma_khach_hang, consult_id=it.id) }}" enctype="multipart/form-data" class="d-flex gap-2">
+                          <input type="file" name="files" multiple class="form-control form-control-sm" style="max-width: 320px;">
+                          <button class="btn btn-sm btn-brand" type="submit">Tải lên</button>
+                        </form>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                  {% else %}
+                  <tr><td colspan="5" class="text-center text-muted">Chưa có yêu cầu tư vấn.</td></tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+{% endblock %}
+
+

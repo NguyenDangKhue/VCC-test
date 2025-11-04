@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Danh mục sản phẩm - Viettel Construction Lâm Đồng{% endblock %}
+{% block content %}
+<section class="page-header text-white">
+  <div class="container py-5">
+    <h1 class="fw-bold">Danh mục sản phẩm</h1>
+    <p class="mb-0">Các giải pháp chủ lực của chúng tôi.</p>
+  </div>
+  <div class="hero-gradient"></div>
+  </section>
+
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4">
+      {% for p in products %}
+      <div class="col-md-4">
+        <div class="card product-card h-100">
+          <div class="ratio ratio-16x9 bg-light rounded-top">
+            <img src="{{ url_for('static', filename=p.image) }}" class="object-cover rounded-top" alt="{{ p.name }}">
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ p.name }}</h5>
+            <p class="card-text">{{ p.desc }}</p>
+            <a href="#" class="btn btn-brand">Tìm hiểu thêm</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  </section>
+{% endblock %}
+
+
