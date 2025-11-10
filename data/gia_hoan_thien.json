@@ -1,0 +1,30 @@
+[
+  {
+    "id": "gia_ht_1",
+    "gia": 2150000,
+    "mo_ta": "2.150.000 VNĐ/m²",
+    "active": true,
+    "order": 1
+  },
+  {
+    "id": "gia_ht_2",
+    "gia": 2650000,
+    "mo_ta": "2.650.000 VNĐ/m²",
+    "active": true,
+    "order": 2
+  },
+  {
+    "id": "gia_ht_3",
+    "gia": 3150000,
+    "mo_ta": "3.150.000 VNĐ/m²",
+    "active": true,
+    "order": 3
+  },
+  {
+    "id": "gia_ht_4",
+    "gia": 3650000,
+    "mo_ta": "3.650.000 VNĐ/m²",
+    "active": true,
+    "order": 4
+  }
+]

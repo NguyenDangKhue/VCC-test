@@ -1,0 +1,343 @@
+{% extends "base.html" %}
+{% block title %}Quản lý báo giá - Nội bộ{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Quản lý báo giá</h2>
+    <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary">← Quay lại</a>
+  </div>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <div class="row">
+    <!-- Quản lý Hạng mục -->
+    <div class="col-lg-4 mb-4">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0"><i class="bi bi-list-check me-2"></i>Quản lý Hạng mục chính</h5>
+        </div>
+        <div class="card-body">
+          <!-- Form thêm hạng mục -->
+          <div class="mb-4 p-3 bg-light rounded">
+            <h6 class="mb-3">Thêm hạng mục mới</h6>
+            <form method="POST" action="{{ url_for('hang_muc_create') }}">
+              <div class="mb-2">
+                <label for="new_hang_muc_name" class="form-label small">Tên hạng mục</label>
+                <input type="text" class="form-control form-control-sm" id="new_hang_muc_name" name="name" required placeholder="Ví dụ: Tầng 7">
+              </div>
+              <div class="mb-2">
+                <label for="new_hang_muc_he_so" class="form-label small">Hệ số</label>
+                <input type="number" class="form-control form-control-sm" id="new_hang_muc_he_so" name="he_so" step="0.1" min="0" required placeholder="1.0">
+              </div>
+              <button type="submit" class="btn btn-sm btn-primary w-100">Thêm hạng mục</button>
+            </form>
+          </div>
+
+          <!-- Danh sách hạng mục -->
+          <h6 class="mb-3">Danh sách hạng mục ({{ hang_muc|length }})</h6>
+          <div class="table-responsive">
+            <table class="table table-sm table-hover">
+              <thead>
+                <tr>
+                  <th style="width: 5%;">STT</th>
+                  <th>Tên hạng mục</th>
+                  <th style="width: 20%;" class="text-center">Hệ số</th>
+                  <th style="width: 30%;" class="text-end">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in hang_muc %}
+                <tr>
+                  <td>{{ loop.index }}</td>
+                  <td>{{ item.name }}</td>
+                  <td class="text-center"><span class="badge bg-secondary">{{ item.he_so }}</span></td>
+                  <td class="text-end">
+                    <button class="btn btn-sm btn-outline-primary" onclick="editHangMuc('{{ item.id }}', '{{ item.name }}', '{{ item.he_so }}')">
+                      Sửa
+                    </button>
+                    <form method="POST" action="{{ url_for('hang_muc_delete', hang_muc_id=item.id) }}" class="d-inline" onsubmit="return confirm('Xóa hạng mục này?');">
+                      <button type="submit" class="btn btn-sm btn-outline-danger">Xóa</button>
+                    </form>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quản lý Giá xây thô -->
+    <div class="col-lg-4 mb-4">
+      <div class="card">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0"><i class="bi bi-hammer me-2"></i>Quản lý Giá xây thô</h5>
+        </div>
+        <div class="card-body">
+          <!-- Form thêm giá -->
+          <div class="mb-4 p-3 bg-light rounded">
+            <h6 class="mb-3">Thêm mức giá mới</h6>
+            <form method="POST" action="{{ url_for('gia_xay_tho_create') }}">
+              <div class="mb-2">
+                <label for="new_gia" class="form-label small">Giá (VNĐ/m²)</label>
+                <input type="text" class="form-control form-control-sm" id="new_gia" name="gia" required placeholder="3950000">
+                <small class="text-muted">Nhập số không dấu phẩy, ví dụ: 3950000</small>
+              </div>
+              <div class="mb-2">
+                <label for="new_mo_ta" class="form-label small">Mô tả (tùy chọn)</label>
+                <input type="text" class="form-control form-control-sm" id="new_mo_ta" name="mo_ta" placeholder="3.950.000 VNĐ/m²">
+              </div>
+              <button type="submit" class="btn btn-sm btn-primary w-100">Thêm mức giá</button>
+            </form>
+          </div>
+
+          <!-- Danh sách giá -->
+          <h6 class="mb-3">Danh sách mức giá ({{ gia_xay_tho|length }})</h6>
+          <div class="table-responsive">
+            <table class="table table-sm table-hover">
+              <thead>
+                <tr>
+                  <th style="width: 5%;">STT</th>
+                  <th>Mô tả</th>
+                  <th style="width: 20%;" class="text-end">Giá</th>
+                  <th style="width: 15%;" class="text-center">Trạng thái</th>
+                  <th style="width: 30%;" class="text-end">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in gia_xay_tho %}
+                <tr>
+                  <td>{{ loop.index }}</td>
+                  <td>{{ item.mo_ta }}</td>
+                  <td class="text-end">{{ "{:,.0f}".format(item.gia).replace(",", ".") }} VNĐ</td>
+                  <td class="text-center">
+                    {% if item.active %}
+                    <span class="badge bg-success">Hiển thị</span>
+                    {% else %}
+                    <span class="badge bg-secondary">Ẩn</span>
+                    {% endif %}
+                  </td>
+                  <td class="text-end">
+                    <button class="btn btn-sm btn-outline-primary" onclick="editGia('{{ item.id }}', '{{ item.gia }}', '{{ item.mo_ta }}', {{ 'true' if item.active else 'false' }})">
+                      Sửa
+                    </button>
+                    <form method="POST" action="{{ url_for('gia_xay_tho_delete', gia_id=item.id) }}" class="d-inline" onsubmit="return confirm('Xóa mức giá này?');">
+                      <button type="submit" class="btn btn-sm btn-outline-danger">Xóa</button>
+                    </form>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quản lý Giá hoàn thiện -->
+    <div class="col-lg-4 mb-4">
+      <div class="card">
+        <div class="card-header bg-success text-white">
+          <h5 class="mb-0"><i class="bi bi-paint-bucket me-2"></i>Quản lý Giá hoàn thiện</h5>
+        </div>
+        <div class="card-body">
+          <!-- Form thêm giá -->
+          <div class="mb-4 p-3 bg-light rounded">
+            <h6 class="mb-3">Thêm mức giá mới</h6>
+            <form method="POST" action="{{ url_for('gia_hoan_thien_create') }}">
+              <div class="mb-2">
+                <label for="new_gia_ht" class="form-label small">Giá (VNĐ/m²)</label>
+                <input type="text" class="form-control form-control-sm" id="new_gia_ht" name="gia" required placeholder="3650000">
+                <small class="text-muted">Nhập số không dấu phẩy, ví dụ: 3650000</small>
+              </div>
+              <div class="mb-2">
+                <label for="new_mo_ta_ht" class="form-label small">Mô tả (tùy chọn)</label>
+                <input type="text" class="form-control form-control-sm" id="new_mo_ta_ht" name="mo_ta" placeholder="3.650.000 VNĐ/m²">
+              </div>
+              <button type="submit" class="btn btn-sm btn-success w-100">Thêm mức giá</button>
+            </form>
+          </div>
+
+          <!-- Danh sách giá -->
+          <h6 class="mb-3">Danh sách mức giá ({{ gia_hoan_thien|length }})</h6>
+          <div class="table-responsive">
+            <table class="table table-sm table-hover">
+              <thead>
+                <tr>
+                  <th style="width: 5%;">STT</th>
+                  <th>Mô tả</th>
+                  <th style="width: 20%;" class="text-end">Giá</th>
+                  <th style="width: 15%;" class="text-center">Trạng thái</th>
+                  <th style="width: 30%;" class="text-end">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in gia_hoan_thien %}
+                <tr>
+                  <td>{{ loop.index }}</td>
+                  <td>{{ item.mo_ta }}</td>
+                  <td class="text-end">{{ "{:,.0f}".format(item.gia).replace(",", ".") }} VNĐ</td>
+                  <td class="text-center">
+                    {% if item.active %}
+                    <span class="badge bg-success">Hiển thị</span>
+                    {% else %}
+                    <span class="badge bg-secondary">Ẩn</span>
+                    {% endif %}
+                  </td>
+                  <td class="text-end">
+                    <button class="btn btn-sm btn-outline-primary" onclick="editGiaHT('{{ item.id }}', '{{ item.gia }}', '{{ item.mo_ta }}', {{ 'true' if item.active else 'false' }})">
+                      Sửa
+                    </button>
+                    <form method="POST" action="{{ url_for('gia_hoan_thien_delete', gia_id=item.id) }}" class="d-inline" onsubmit="return confirm('Xóa mức giá này?');">
+                      <button type="submit" class="btn btn-sm btn-outline-danger">Xóa</button>
+                    </form>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Sửa Hạng mục -->
+<div class="modal fade" id="editHangMucModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Sửa hạng mục</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST" id="editHangMucForm">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="edit_hang_muc_name" class="form-label">Tên hạng mục</label>
+            <input type="text" class="form-control" id="edit_hang_muc_name" name="name" required>
+          </div>
+          <div class="mb-3">
+            <label for="edit_hang_muc_he_so" class="form-label">Hệ số</label>
+            <input type="number" class="form-control" id="edit_hang_muc_he_so" name="he_so" step="0.1" min="0" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+          <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Sửa Giá Xây thô -->
+<div class="modal fade" id="editGiaModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Sửa mức giá xây thô</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST" id="editGiaForm">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="edit_gia" class="form-label">Giá (VNĐ/m²)</label>
+            <input type="text" class="form-control" id="edit_gia" name="gia" required>
+            <small class="text-muted">Nhập số không dấu phẩy</small>
+          </div>
+          <div class="mb-3">
+            <label for="edit_mo_ta" class="form-label">Mô tả</label>
+            <input type="text" class="form-control" id="edit_mo_ta" name="mo_ta">
+          </div>
+          <div class="mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="edit_active" name="active">
+              <label class="form-check-label" for="edit_active">
+                Hiển thị trong báo giá
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+          <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Sửa Giá Hoàn thiện -->
+<div class="modal fade" id="editGiaHTModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Sửa mức giá hoàn thiện</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST" id="editGiaHTForm">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="edit_gia_ht" class="form-label">Giá (VNĐ/m²)</label>
+            <input type="text" class="form-control" id="edit_gia_ht" name="gia" required>
+            <small class="text-muted">Nhập số không dấu phẩy</small>
+          </div>
+          <div class="mb-3">
+            <label for="edit_mo_ta_ht" class="form-label">Mô tả</label>
+            <input type="text" class="form-control" id="edit_mo_ta_ht" name="mo_ta">
+          </div>
+          <div class="mb-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="edit_active_ht" name="active">
+              <label class="form-check-label" for="edit_active_ht">
+                Hiển thị trong báo giá
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+          <button type="submit" class="btn btn-success">Lưu thay đổi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+function editHangMuc(id, name, heSo) {
+  document.getElementById('edit_hang_muc_name').value = name;
+  document.getElementById('edit_hang_muc_he_so').value = heSo;
+  document.getElementById('editHangMucForm').action = '/noi-bo/quan-ly-bao-gia/hang-muc/sua/' + id;
+  new bootstrap.Modal(document.getElementById('editHangMucModal')).show();
+}
+
+function editGia(id, gia, moTa, active) {
+  document.getElementById('edit_gia').value = gia;
+  document.getElementById('edit_mo_ta').value = moTa;
+  document.getElementById('edit_active').checked = active === 'true' || active === true;
+  document.getElementById('editGiaForm').action = '/noi-bo/quan-ly-bao-gia/gia-xay-tho/sua/' + id;
+  new bootstrap.Modal(document.getElementById('editGiaModal')).show();
+}
+
+function editGiaHT(id, gia, moTa, active) {
+  document.getElementById('edit_gia_ht').value = gia;
+  document.getElementById('edit_mo_ta_ht').value = moTa;
+  document.getElementById('edit_active_ht').checked = active === 'true' || active === true;
+  document.getElementById('editGiaHTForm').action = '/noi-bo/quan-ly-bao-gia/gia-hoan-thien/sua/' + id;
+  new bootstrap.Modal(document.getElementById('editGiaHTModal')).show();
+}
+</script>
+{% endblock %}
+

@@ -3,7 +3,23 @@
 {% block content %}
 
 <section class="hero-section text-center text-white d-flex align-items-center">
-  <div class="container">
+  {% if hero_images and hero_images|length > 0 %}
+  <div class="hero-carousel">
+    {% for hero in hero_images %}
+    <div class="hero-slide {% if loop.index0 == 0 %}active{% endif %}" 
+         style="background-image: url('{{ hero.image_url }}');"
+         data-project-id="{{ hero.project_id }}">
+      {% if hero.caption %}
+      <div class="hero-caption {% if loop.index0 == 0 %}active{% endif %}">
+        {{ hero.caption }}
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+  <div class="hero-red-overlay"></div>
+  <div class="container hero-content">
     <h1 class="display-5 fw-bold">Kiến tạo hạ tầng số, bền vững tương lai</h1>
     <p class="lead mt-3 mb-4">Viettel Construction - Chi nhánh Lâm Đồng cung cấp giải pháp hạ tầng viễn thông, năng lượng xanh và toà nhà thông minh.</p>
     <div>
@@ -13,7 +29,86 @@
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-gradient"></div>
-  </section>
+  {% if hero_images and hero_images|length > 1 %}
+  <div class="hero-indicators">
+    {% for hero in hero_images %}
+    <button class="hero-indicator {% if loop.index0 == 0 %}active{% endif %}" 
+            data-slide="{{ loop.index0 }}"
+            aria-label="Slide {{ loop.index }}"></button>
+    {% endfor %}
+  </div>
+  {% endif %}
+</section>
+
+{% if hero_images and hero_images|length > 0 %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const slides = document.querySelectorAll('.hero-slide');
+  const indicators = document.querySelectorAll('.hero-indicator');
+  if (slides.length === 0) return;
+  
+  let currentSlide = 0;
+  const slideInterval = 5000; // 5 seconds
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+      // Show/hide caption
+      const caption = slide.querySelector('.hero-caption');
+      if (caption) {
+        caption.classList.toggle('active', i === index);
+      }
+    });
+    indicators.forEach((indicator, i) => {
+      indicator.classList.toggle('active', i === index);
+    });
+    currentSlide = index;
+  }
+
+  function nextSlide() {
+    const next = (currentSlide + 1) % slides.length;
+    showSlide(next);
+  }
+
+  // Auto-advance slides
+  let slideTimer = setInterval(nextSlide, slideInterval);
+
+  // Indicator clicks
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', (e) => {
+      e.stopPropagation();
+      clearInterval(slideTimer);
+      showSlide(index);
+      slideTimer = setInterval(nextSlide, slideInterval);
+    });
+  });
+
+  // Click on hero to go to project
+  const heroSection = document.querySelector('.hero-section');
+  if (heroSection) {
+    heroSection.addEventListener('click', function(e) {
+      if (!e.target.closest('.hero-indicators') && !e.target.closest('.hero-content')) {
+        const activeSlide = document.querySelector('.hero-slide.active');
+        if (activeSlide) {
+          const projectId = activeSlide.getAttribute('data-project-id');
+          if (projectId) {
+            window.location.href = '{{ url_for("gallery") }}?project=' + projectId;
+          }
+        }
+      }
+    });
+
+    // Pause on hover
+    heroSection.addEventListener('mouseenter', () => {
+      clearInterval(slideTimer);
+    });
+    heroSection.addEventListener('mouseleave', () => {
+      slideTimer = setInterval(nextSlide, slideInterval);
+    });
+  }
+});
+</script>
+{% endif %}
 
 <section class="features py-5">
   <div class="container">

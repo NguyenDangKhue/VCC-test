@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+{% block title %}Quản lý hình ảnh trang chủ - Nội bộ{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Quản lý hình ảnh trang chủ</h2>
+    <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary">← Quay lại</a>
+  </div>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <!-- Form thêm hình ảnh -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h5 class="mb-0">Thêm hình ảnh vào trang chủ</h5>
+    </div>
+    <div class="card-body">
+      <form method="POST" action="{{ url_for('hero_images_add') }}">
+        <div class="row">
+          <div class="col-md-4">
+            <label for="select_project" class="form-label">Chọn dự án:</label>
+            <select class="form-select" id="select_project" name="project_id" required onchange="loadProjectImages()">
+              <option value="">-- Chọn dự án --</option>
+              {% for project in projects %}
+              {% if project.images and project.images|length > 0 %}
+              <option value="{{ project.id }}">{{ project.chu_dau_tu }}</option>
+              {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label for="select_image" class="form-label">Chọn hình ảnh:</label>
+            <select class="form-select" id="select_image" name="image_filename" required>
+              <option value="">-- Chọn dự án trước --</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label for="caption" class="form-label">Dòng chữ giới thiệu (tùy chọn):</label>
+            <input type="text" class="form-control" id="caption" name="caption" placeholder="Ví dụ: Dự án xây dựng nhà phố hiện đại...">
+            <small class="text-muted">Hiển thị ở góc dưới bên phải</small>
+          </div>
+          <div class="col-md-1 d-flex align-items-end">
+            <button type="submit" class="btn btn-brand w-100">Thêm</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Danh sách hình ảnh đã chọn -->
+  <div class="card">
+    <div class="card-header">
+      <h5 class="mb-0">Hình ảnh đang hiển thị trên trang chủ</h5>
+      <small class="text-muted">Kéo thả để sắp xếp thứ tự hiển thị</small>
+    </div>
+    <div class="card-body">
+      {% if hero_images %}
+      <div id="heroImagesList" class="row g-3">
+        {% for hero in hero_images %}
+        <div class="col-md-4 col-lg-3 hero-image-item" data-index="{{ loop.index0 }}">
+          <div class="card">
+            <div class="position-relative" style="height: 200px; overflow: hidden;">
+              <img src="{{ hero.image_url }}" class="card-img-top" style="width: 100%; height: 100%; object-fit: cover;" alt="{{ hero.project_title }}">
+              <div class="position-absolute top-0 end-0 m-2">
+                <span class="badge bg-light text-dark">#{{ loop.index }}</span>
+              </div>
+            </div>
+            <div class="card-body p-2">
+              <p class="card-text small mb-1"><strong>{{ hero.project_title }}</strong></p>
+              <p class="card-text small text-muted mb-1">{{ hero.image_filename }}</p>
+              {% if hero.caption %}
+              <p class="card-text small mb-2 text-info">
+                <i class="bi bi-chat-quote"></i> {{ hero.caption[:50] }}{% if hero.caption|length > 50 %}...{% endif %}
+              </p>
+              {% endif %}
+              <div class="d-grid gap-1">
+                <button class="btn btn-sm btn-outline-primary" onclick="editCaption({{ loop.index0 }}, '{{ hero.caption|replace("'", "\\'") if hero.caption else "" }}')">
+                  <i class="bi bi-pencil"></i> Sửa caption
+                </button>
+                <form method="POST" action="{{ url_for('hero_images_delete', index=loop.index0) }}" class="d-inline" onsubmit="return confirm('Xóa hình ảnh này khỏi trang chủ?');">
+                  <button type="submit" class="btn btn-sm btn-outline-danger w-100">Xóa</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class="alert alert-info mb-0">
+        Chưa có hình ảnh nào được chọn. Hãy thêm hình ảnh từ các dự án.
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+const projectsData = {{ projects | tojson | safe }};
+
+function loadProjectImages() {
+  const projectId = document.getElementById('select_project').value;
+  const selectImage = document.getElementById('select_image');
+  selectImage.innerHTML = '<option value="">-- Chọn hình ảnh --</option>';
+  
+  if (!projectId) return;
+  
+  const project = projectsData.find(p => p.id === projectId);
+  if (project && project.images) {
+    project.images.forEach(image => {
+      const option = document.createElement('option');
+      option.value = image.filename;
+      option.textContent = image.filename + (image.progress ? ' (' + image.progress + ')' : '');
+      selectImage.appendChild(option);
+    });
+  }
+}
+
+// Drag and drop reordering
+let draggedElement = null;
+
+document.addEventListener('DOMContentLoaded', function() {
+  const list = document.getElementById('heroImagesList');
+  if (!list) return;
+  
+  const items = list.querySelectorAll('.hero-image-item');
+  items.forEach(item => {
+    item.draggable = true;
+    item.addEventListener('dragstart', function(e) {
+      draggedElement = this;
+      this.style.opacity = '0.5';
+    });
+    item.addEventListener('dragend', function(e) {
+      this.style.opacity = '1';
+      draggedElement = null;
+    });
+    item.addEventListener('dragover', function(e) {
+      e.preventDefault();
+      if (draggedElement && draggedElement !== this) {
+        const rect = this.getBoundingClientRect();
+        const midY = rect.top + rect.height / 2;
+        if (e.clientY < midY) {
+          list.insertBefore(draggedElement, this);
+        } else {
+          list.insertBefore(draggedElement, this.nextSibling);
+        }
+      }
+    });
+    item.addEventListener('drop', function(e) {
+      e.preventDefault();
+      if (draggedElement && draggedElement !== this) {
+        saveOrder();
+      }
+    });
+  });
+});
+
+function saveOrder() {
+  const items = document.querySelectorAll('.hero-image-item');
+  const indices = Array.from(items).map(item => parseInt(item.getAttribute('data-index')));
+  
+  fetch('{{ url_for("hero_images_reorder") }}', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ indices: indices })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      // Update data-index attributes
+      items.forEach((item, index) => {
+        item.setAttribute('data-index', index);
+        const badge = item.querySelector('.badge');
+        if (badge) badge.textContent = '#' + (index + 1);
+      });
+      // Show success message
+      const alert = document.createElement('div');
+      alert.className = 'alert alert-success alert-dismissible fade show';
+      alert.innerHTML = 'Đã cập nhật thứ tự hiển thị. <button type="button" class="btn-close" data-bs-dismiss="alert"></button>';
+      document.querySelector('.container').insertBefore(alert, document.querySelector('.container').firstChild);
+      setTimeout(() => alert.remove(), 3000);
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+}
+
+function editCaption(index, currentCaption) {
+  const newCaption = prompt('Nhập dòng chữ giới thiệu (để trống để xóa):', currentCaption || '');
+  if (newCaption !== null) {
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/noi-bo/quan-ly-hinh-anh-trang-chu/sua-caption/' + index;
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'caption';
+    input.value = newCaption;
+    form.appendChild(input);
+    document.body.appendChild(form);
+    form.submit();
+  }
+}
+</script>
+{% endblock %}
+

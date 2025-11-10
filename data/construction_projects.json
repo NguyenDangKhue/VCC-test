@@ -1,0 +1,139 @@
+[
+  {
+    "id": "171dd8822f2542fcbfdac04be4e6c504",
+    "chu_dau_tu": "Nguyễn Viết Mộc",
+    "quy_mo_du_an": "500m2, 5 tầng",
+    "dia_chi_du_an": "Đường Lữ Gia, phường Lâm Viên -  Đà Lạt, Lâm Đồng",
+    "images": [
+      {
+        "id": "f2f07796c679413c8c54b03eac3afd18",
+        "filename": "exterior__Modern_4-story_myarchitectai_1755736044244_dfcf9762.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/exterior__Modern_4-story_myarchitectai_1755736044244_dfcf9762.jpg",
+        "progress": "Hoàn thiện",
+        "uploaded_at": "2025-11-10T19:36:04",
+        "uploader": "Trung"
+      },
+      {
+        "id": "34fcab3f58f04d4f95f9c52d7ea87f29",
+        "filename": "z6928257114558_fc0d085871e6ac46230a0dee4637604a_72992287.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z6928257114558_fc0d085871e6ac46230a0dee4637604a_72992287.jpg",
+        "progress": "Hoàn thiện",
+        "uploaded_at": "2025-11-10T19:36:04",
+        "uploader": "Trung"
+      },
+      {
+        "id": "9f459d7f2fd64cfa824a3b5792570741",
+        "filename": "hop-dong-tu-van-dau-tu-xay-dung_5fef72f8.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/hop-dong-tu-van-dau-tu-xay-dung_5fef72f8.jpg",
+        "progress": "Tư vấn khách hàng",
+        "uploaded_at": "2025-11-10T19:40:31",
+        "uploader": "Trung"
+      },
+      {
+        "id": "5788b4a0a70f4d738ee5ae0b36051d72",
+        "filename": "do-be-tong-nen-nha-xuong_3553a099.jpeg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/do-be-tong-nen-nha-xuong_3553a099.jpeg",
+        "progress": "Đổ sàn",
+        "uploaded_at": "2025-11-10T19:40:41",
+        "uploader": "Trung"
+      },
+      {
+        "id": "8b0a19f347c94d7d82aebedd403977da",
+        "filename": "xay-nha-phan-tho-phan-hoan-thien_1e48a51a.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/xay-nha-phan-tho-phan-hoan-thien_1e48a51a.jpg",
+        "progress": "Xây tường vây",
+        "uploaded_at": "2025-11-10T19:53:36",
+        "uploader": "Trung"
+      },
+      {
+        "id": "59012cb0ddf249bb84376d4ad6b4fa59",
+        "filename": "z6960664947996_2b7923591e01e29299aca93fe39a4cd3_72367bf3.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z6960664947996_2b7923591e01e29299aca93fe39a4cd3_72367bf3.jpg",
+        "progress": "Điện nước",
+        "uploaded_at": "2025-11-10T19:53:49",
+        "uploader": "Trung"
+      }
+    ],
+    "created_at": "2025-11-10T19:35:12",
+    "created_by": "Trung",
+    "ngay_khoi_cong": "2025-08-28"
+  },
+  {
+    "id": "dc5fef7d3ff64120a503e6fc86c97fa9",
+    "chu_dau_tu": "Nguyễn Văn A",
+    "quy_mo_du_an": "100m2, 1 tầng",
+    "dia_chi_du_an": "Đường Lữ Gia, phường Lâm Viên -  Đà Lạt, Lâm Đồng",
+    "images": [
+      {
+        "id": "6416192e7cff4d93b3ddc7a30f72c20b",
+        "filename": "edited-adjusted-1756513809392_980cdd4d.png",
+        "path": "projects/dc5fef7d3ff64120a503e6fc86c97fa9/edited-adjusted-1756513809392_980cdd4d.png",
+        "progress": "Tô tường",
+        "uploaded_at": "2025-11-10T19:42:08",
+        "uploader": "Trung"
+      },
+      {
+        "id": "e5f6ca03be7340799e869a2a5b9f4165",
+        "filename": "edited-edited-1756513767258_16fa69bc.png",
+        "path": "projects/dc5fef7d3ff64120a503e6fc86c97fa9/edited-edited-1756513767258_16fa69bc.png",
+        "progress": "Tô tường",
+        "uploaded_at": "2025-11-10T19:42:08",
+        "uploader": "Trung"
+      },
+      {
+        "id": "48f9d8623e6c44d4b32c29140d227080",
+        "filename": "z6960664947996_2b7923591e01e29299aca93fe39a4cd3_bb092cb8.jpg",
+        "path": "projects/dc5fef7d3ff64120a503e6fc86c97fa9/z6960664947996_2b7923591e01e29299aca93fe39a4cd3_bb092cb8.jpg",
+        "progress": "Tô tường",
+        "uploaded_at": "2025-11-10T19:42:08",
+        "uploader": "Trung"
+      },
+      {
+        "id": "f8ad7f911fa04864ba8a79ed1f536d63",
+        "filename": "xay-nha-phan-tho-13_53751b3f.jpg",
+        "path": "projects/dc5fef7d3ff64120a503e6fc86c97fa9/xay-nha-phan-tho-13_53751b3f.jpg",
+        "progress": "Hoàn thiện",
+        "uploaded_at": "2025-11-10T19:45:20",
+        "uploader": "Trung"
+      },
+      {
+        "id": "e333170214a44d48acd70dfb8e628e9e",
+        "filename": "xay-nha-phan-tho-phan-hoan-thien_e46c5bc2.jpg",
+        "path": "projects/dc5fef7d3ff64120a503e6fc86c97fa9/xay-nha-phan-tho-phan-hoan-thien_e46c5bc2.jpg",
+        "progress": "Hoàn thiện",
+        "uploaded_at": "2025-11-10T19:45:20",
+        "uploader": "Trung"
+      }
+    ],
+    "created_at": "2025-11-10T19:41:51",
+    "created_by": "Trung",
+    "ngay_khoi_cong": "2025-09-10"
+  },
+  {
+    "id": "326a06a9be1b4198a6b393bf7c1d83bc",
+    "chu_dau_tu": "Nguyễn Văn B",
+    "quy_mo_du_an": "100m2, 1 tầng",
+    "dia_chi_du_an": "Đường Lữ Gia, phường Lâm Viên -  Đà Lạt, Lâm Đồng",
+    "images": [
+      {
+        "id": "b5caf39bd3aa48e89342442bfe75ddd4",
+        "filename": "dich-vu-tu-van-thiet-ke-xay-dung-nha-o-mien-phi-hieu-qua_03f7b1d9.jpg",
+        "path": "projects/326a06a9be1b4198a6b393bf7c1d83bc/dich-vu-tu-van-thiet-ke-xay-dung-nha-o-mien-phi-hieu-qua_03f7b1d9.jpg",
+        "progress": "Tư vấn khách hàng",
+        "uploaded_at": "2025-11-10T19:47:45",
+        "uploader": "Trung"
+      },
+      {
+        "id": "aeb1586888494751a3195532aa6bce51",
+        "filename": "Tu-van-xay-dung_5e7ce040.jpg",
+        "path": "projects/326a06a9be1b4198a6b393bf7c1d83bc/Tu-van-xay-dung_5e7ce040.jpg",
+        "progress": "Tư vấn khách hàng",
+        "uploaded_at": "2025-11-10T19:47:45",
+        "uploader": "Trung"
+      }
+    ],
+    "created_at": "2025-11-10T19:46:51",
+    "created_by": "Trung",
+    "ngay_khoi_cong": "2025-10-31"
+  }
+]

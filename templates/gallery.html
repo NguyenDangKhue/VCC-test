@@ -1,29 +1,166 @@
 {% extends "base.html" %}
-{% block title %}Danh mục hình ảnh - Viettel Construction Lâm Đồng{% endblock %}
+{% block title %}Hình ảnh công trình - Viettel Construction Lâm Đồng{% endblock %}
 {% block content %}
 <section class="page-header text-white">
   <div class="container py-5">
-    <h1 class="fw-bold">Danh mục hình ảnh</h1>
+    <h1 class="fw-bold">Hình ảnh công trình</h1>
     <p class="mb-0">Những khoảnh khắc đáng nhớ từ dự án của chúng tôi.</p>
   </div>
   <div class="hero-gradient"></div>
-  </section>
+</section>
 
 <section class="py-5">
   <div class="container">
-    <div class="row g-4">
-      {% for img in images %}
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="card gallery-card">
-          <div class="ratio ratio-1x1 bg-light">
-            <img src="{{ url_for('static', filename=img) }}" class="object-cover rounded" alt="Hình ảnh dự án">
+    {% if projects %}
+    <!-- Progress Filter -->
+    <div class="gallery-filters mb-4">
+      <div class="row align-items-center">
+        <div class="col-md-4">
+          <label for="progressFilter" class="form-label mb-2 mb-md-0">
+            <i class="bi bi-funnel"></i> Lọc theo tiến độ:
+          </label>
+        </div>
+        <div class="col-md-6">
+          <select id="progressFilter" class="form-select">
+            <option value="">Tất cả tiến độ</option>
+            {% for progress in progress_options %}
+            <option value="{{ progress }}">{{ progress }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-2 text-end">
+          <button id="clearFilter" class="btn btn-outline-secondary btn-sm w-100 w-md-auto">
+            <i class="bi bi-x-circle"></i> Xóa lọc
+          </button>
+        </div>
+      </div>
+      <div class="mt-3">
+        <small class="text-muted" id="filterResult">
+          Hiển thị <strong id="projectCount">{{ projects|length }}</strong> dự án
+        </small>
+      </div>
+    </div>
+
+    <div class="row g-4" id="gallery-container">
+      {% for project in projects %}
+      {% set progress_list = project.images | map(attribute='progress') | list if project.images else [] %}
+      {% set unique_progress = [] %}
+      {% for p in progress_list %}
+        {% if p and p not in unique_progress %}
+          {% set _ = unique_progress.append(p) %}
+        {% endif %}
+      {% endfor %}
+      <div class="col-12 col-md-6 col-lg-4 project-card-wrapper" 
+           data-project-id="{{ project.id }}"
+           data-progress="{{ unique_progress|join(',') }}">
+        <div class="card gallery-project-card h-100 shadow-sm clickable-card" 
+             style="cursor: pointer;"
+             onclick="openProjectModal('{{ project.id }}')">
+          <div class="project-image-container">
+            {% if project.images and project.images|length > 0 %}
+            <div class="project-main-image">
+              <img src="{{ url_for('serve_project_image', subpath=project.id + '/' + project.images[0].filename) }}" 
+                   class="card-img-top" 
+                   alt="{{ project.chu_dau_tu }}"
+                   loading="lazy">
+              <div class="image-overlay">
+                <span class="badge bg-light text-dark">{{ project.images|length }} hình</span>
+              </div>
+            </div>
+            {% else %}
+            <div class="project-placeholder">
+              <i class="bi bi-image" style="font-size: 3rem; color: #ccc;"></i>
+              <p class="text-muted mt-2">Chưa có hình ảnh</p>
+            </div>
+            {% endif %}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title text-brand clickable-title">{{ project.chu_dau_tu }}</h5>
+            {% if project.quy_mo_du_an %}
+            <p class="card-text text-muted small mb-1">
+              <i class="bi bi-rulers"></i> {{ project.quy_mo_du_an }}
+            </p>
+            {% endif %}
+            <p class="card-text text-muted small mb-1">
+              <i class="bi bi-geo-alt"></i> {{ project.dia_chi_du_an }}
+            </p>
+            {% if project.ngay_khoi_cong %}
+            <p class="card-text text-muted small mb-3">
+              <i class="bi bi-calendar-event"></i> Ngày khởi công: 
+              {% set date_parts = project.ngay_khoi_cong.split('-') %}
+              {% if date_parts|length == 3 %}
+                {{ date_parts[2] }}/{{ date_parts[1] }}/{{ date_parts[0] }}
+              {% else %}
+                {{ project.ngay_khoi_cong }}
+              {% endif %}
+            </p>
+            {% else %}
+            <p class="card-text text-muted small mb-3"></p>
+            {% endif %}
+            {% if project.images and project.images|length > 0 %}
+            <div class="progress-tags mb-3">
+              {% for progress in unique_progress[:3] %}
+              <span class="badge bg-secondary me-1 progress-badge" 
+                    data-progress="{{ progress }}"
+                    onclick="event.stopPropagation(); filterByProgress('{{ progress }}')"
+                    title="Click để lọc theo tiến độ này">{{ progress }}</span>
+              {% endfor %}
+              {% if unique_progress|length > 3 %}
+              <span class="badge bg-light text-dark">+{{ unique_progress|length - 3 }}</span>
+              {% endif %}
+            </div>
+            {% endif %}
+            <button class="btn btn-sm btn-brand w-100 view-project-btn" 
+                    data-project-id="{{ project.id }}"
+                    onclick="event.stopPropagation(); openProjectModal('{{ project.id }}')">
+              <i class="bi bi-eye"></i> Xem chi tiết
+            </button>
           </div>
         </div>
       </div>
       {% endfor %}
     </div>
+    {% else %}
+    <div class="text-center py-5">
+      <div class="mb-4">
+        <i class="bi bi-image" style="font-size: 4rem; color: #ccc;"></i>
+      </div>
+      <h4 class="text-muted">Chưa có dự án hình ảnh nào</h4>
+      <p class="text-muted">Các dự án hình ảnh sẽ được hiển thị tại đây.</p>
+    </div>
+    {% endif %}
+    
+    <!-- No results message (hidden by default) -->
+    <div id="noResults" class="text-center py-5" style="display: none;">
+      <div class="mb-4">
+        <i class="bi bi-funnel" style="font-size: 4rem; color: #ccc;"></i>
+      </div>
+      <h4 class="text-muted">Không tìm thấy dự án nào</h4>
+      <p class="text-muted">Thử chọn tiến độ khác hoặc xóa bộ lọc.</p>
+    </div>
   </div>
-  </section>
-{% endblock %}
+</section>
 
+<!-- Modal for Project Detail -->
+<div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="projectModalLabel">Chi tiết dự án</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="projectModalContent">
+          <!-- Content will be loaded dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Pass projects data to JavaScript
+  window.galleryProjects = {{ projects | tojson | safe if projects else '[]' }};
+</script>
+{% endblock %}
 

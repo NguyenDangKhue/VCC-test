@@ -1,0 +1,74 @@
+[
+  {
+    "id": "ket_cau_mong",
+    "name": "Kết cấu móng",
+    "he_so": 0.4,
+    "order": 1
+  },
+  {
+    "id": "tang_ham",
+    "name": "Tầng hầm",
+    "he_so": 1.5,
+    "order": 2
+  },
+  {
+    "id": "tang_tret",
+    "name": "Tầng trệt",
+    "he_so": 1,
+    "order": 3
+  },
+  {
+    "id": "tang_1",
+    "name": "Tầng 1",
+    "he_so": 1,
+    "order": 4
+  },
+  {
+    "id": "tang_2",
+    "name": "Tầng 2",
+    "he_so": 1,
+    "order": 5
+  },
+  {
+    "id": "tang_3",
+    "name": "Tầng 3",
+    "he_so": 1,
+    "order": 6
+  },
+  {
+    "id": "tang_4",
+    "name": "Tầng 4",
+    "he_so": 1,
+    "order": 7
+  },
+  {
+    "id": "tang_5",
+    "name": "Tầng 5",
+    "he_so": 1,
+    "order": 8
+  },
+  {
+    "id": "tang_6",
+    "name": "Tầng 6",
+    "he_so": 1,
+    "order": 9
+  },
+  {
+    "id": "tang_lung",
+    "name": "Tầng lửng",
+    "he_so": 1,
+    "order": 10
+  },
+  {
+    "id": "mai_chinh",
+    "name": "Mái chính + mái che sân thượng",
+    "he_so": 0.2,
+    "order": 11
+  },
+  {
+    "id": "san_thuong",
+    "name": "Sân thượng",
+    "he_so": 1,
+    "order": 12
+  }
+]

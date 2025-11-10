@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Viettel Construction - Lâm Đồng{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,8 +26,9 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto align-items-lg-center">
             <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Trang chủ</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('products') }}">Danh mục sản phẩm</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ url_for('gallery') }}">Danh mục hình ảnh</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('products') }}">Lĩnh vực kinh doanh</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('quote') }}">Báo giá</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('gallery') }}">Hình ảnh công trình</a></li>
             {% if auth_user %}
             <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Nội bộ</a></li>
             <li class="nav-item dropdown">
@@ -34,6 +36,11 @@
               <ul class="dropdown-menu dropdown-menu-end">
                 {% if auth_user.role == 'admin' %}
                 <li><a class="dropdown-item" href="{{ url_for('users_list') }}">Quản lý người dùng</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('projects_list') }}">Quản lý dự án hình ảnh</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('progress_options_list') }}">Quản lý tiến độ</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('quote_management') }}">Quản lý báo giá</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('vat_tu_management') }}">Quản lý vật tư</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('hero_images_management') }}">Quản lý hình ảnh trang chủ</a></li>
                 <li><hr class="dropdown-divider"></li>
                 {% endif %}
                 <li><a class="dropdown-item" href="{{ url_for('logout') }}">Đăng xuất</a></li>

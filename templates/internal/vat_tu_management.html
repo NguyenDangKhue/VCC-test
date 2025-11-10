@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+{% block title %}Quản lý vật tư - Nội bộ{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Quản lý vật tư theo đơn giá xây thô</h2>
+    <a href="{{ url_for('quote_management') }}" class="btn btn-outline-secondary">← Quay lại</a>
+  </div>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <!-- Tạo đơn giá mới -->
+  <div class="card mb-4">
+    <div class="card-header">
+      <h5 class="mb-0">Tạo đơn giá mới</h5>
+    </div>
+    <div class="card-body">
+      <form method="POST" action="{{ url_for('vat_tu_create_gia') }}">
+        <div class="row">
+          <div class="col-md-4">
+            <label for="new_gia_vat_tu" class="form-label">Giá (VNĐ/m²)</label>
+            <input type="text" class="form-control" id="new_gia_vat_tu" name="gia" required placeholder="4000000">
+            <small class="text-muted">Nhập số không dấu phẩy</small>
+          </div>
+          <div class="col-md-6">
+            <label for="new_mo_ta_vat_tu" class="form-label">Mô tả</label>
+            <input type="text" class="form-control" id="new_mo_ta_vat_tu" name="mo_ta" placeholder="4.000.000 VNĐ/m²">
+          </div>
+          <div class="col-md-2 d-flex align-items-end">
+            <button type="submit" class="btn btn-brand w-100">Tạo</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Danh sách đơn giá và vật tư -->
+  {% for gia_key, vat_tu_info in vat_tu_list %}
+  <div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <div>
+        <h5 class="mb-0">{{ vat_tu_info.mo_ta }}</h5>
+        <small class="text-muted">Giá: {{ "{:,.0f}".format(vat_tu_info.gia).replace(",", ".") }} VNĐ/m²</small>
+      </div>
+      <div>
+        <button class="btn btn-sm btn-outline-primary" onclick="editMoTa('{{ gia_key }}', '{{ vat_tu_info.mo_ta }}')">
+          Sửa mô tả
+        </button>
+        <form method="POST" action="{{ url_for('vat_tu_delete_gia', gia_key=gia_key) }}" class="d-inline" onsubmit="return confirm('Xóa toàn bộ dữ liệu vật tư của đơn giá này?');">
+          <button type="submit" class="btn btn-sm btn-outline-danger">Xóa đơn giá</button>
+        </form>
+      </div>
+    </div>
+    <div class="card-body">
+      <!-- Form thêm category -->
+      <div class="mb-3 p-3 bg-light rounded">
+        <h6>Thêm danh mục mới</h6>
+        <form method="POST" action="{{ url_for('vat_tu_add_category', gia_key=gia_key) }}" class="row g-2">
+          <div class="col-md-10">
+            <input type="text" class="form-control form-control-sm" name="name" required placeholder="Ví dụ: V. Vật tư bổ sung">
+          </div>
+          <div class="col-md-2">
+            <button type="submit" class="btn btn-sm btn-primary w-100">Thêm</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Danh sách categories -->
+      {% for category in vat_tu_info.categories %}
+      {% set cat_index = loop.index0 %}
+      <div class="mb-4 p-3 border rounded">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h6 class="mb-0">{{ category.name }}</h6>
+          <div>
+            <button class="btn btn-sm btn-outline-primary" onclick="editCategory('{{ gia_key }}', {{ cat_index }}, '{{ category.name|replace("'", "\\'") }}')">
+              Sửa tên
+            </button>
+            <form method="POST" action="{{ url_for('vat_tu_delete_category', gia_key=gia_key, cat_index=cat_index) }}" class="d-inline" onsubmit="return confirm('Xóa danh mục này?');">
+              <button type="submit" class="btn btn-sm btn-outline-danger">Xóa danh mục</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Form thêm item -->
+        <div class="mb-3 p-2 bg-light rounded">
+          <small class="text-muted d-block mb-2">Thêm vật tư vào danh mục này:</small>
+          <form method="POST" action="{{ url_for('vat_tu_add_item', gia_key=gia_key, cat_index=cat_index) }}" class="row g-2">
+            <div class="col-md-4">
+              <input type="text" class="form-control form-control-sm" name="ten" required placeholder="Tên vật tư">
+            </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control form-control-sm" name="chi_tiet" placeholder="Chi tiết vật tư">
+            </div>
+            <div class="col-md-2">
+              <button type="submit" class="btn btn-sm btn-success w-100">Thêm</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Danh sách items -->
+        {% if category['items'] %}
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered">
+            <thead class="table-light">
+              <tr>
+                <th style="width: 30%;">Loại Vật tư/Hạng mục</th>
+                <th>Chi tiết Vật tư được Trang bị</th>
+                <th style="width: 15%;" class="text-end">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in category['items'] %}
+              <tr>
+                <td>{{ item.ten }}</td>
+                <td>{{ item.chi_tiet }}</td>
+                <td class="text-end">
+                  <button class="btn btn-sm btn-outline-primary" onclick="editItem('{{ gia_key }}', {{ cat_index }}, {{ loop.index0 }}, '{{ item.ten|replace("'", "\\'") }}', '{{ item.chi_tiet|replace("'", "\\'") }}')">
+                    Sửa
+                  </button>
+                  <form method="POST" action="{{ url_for('vat_tu_delete_item', gia_key=gia_key, cat_index=cat_index, item_index=loop.index0) }}" class="d-inline" onsubmit="return confirm('Xóa vật tư này?');">
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Xóa</button>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <p class="text-muted small mb-0">Chưa có vật tư nào trong danh mục này.</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+
+      {% if not vat_tu_info.categories %}
+      <div class="alert alert-info mb-0">
+        Chưa có danh mục nào. Hãy thêm danh mục đầu tiên.
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+
+  {% if not vat_tu %}
+  <div class="alert alert-info">
+    Chưa có dữ liệu vật tư nào. Hãy tạo đơn giá đầu tiên.
+  </div>
+  {% endif %}
+</div>
+
+<!-- Modal Sửa Mô tả -->
+<div class="modal fade" id="editMoTaModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Sửa mô tả đơn giá</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST" id="editMoTaForm">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="edit_mo_ta_vat_tu" class="form-label">Mô tả</label>
+            <input type="text" class="form-control" id="edit_mo_ta_vat_tu" name="mo_ta" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+          <button type="submit" class="btn btn-primary">Lưu</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Sửa Category -->
+<div class="modal fade" id="editCategoryModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Sửa tên danh mục</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST" id="editCategoryForm">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="edit_category_name" class="form-label">Tên danh mục</label>
+            <input type="text" class="form-control" id="edit_category_name" name="name" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+          <button type="submit" class="btn btn-primary">Lưu</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Sửa Item -->
+<div class="modal fade" id="editItemModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Sửa vật tư</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST" id="editItemForm">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="edit_item_ten" class="form-label">Tên vật tư</label>
+            <input type="text" class="form-control" id="edit_item_ten" name="ten" required>
+          </div>
+          <div class="mb-3">
+            <label for="edit_item_chi_tiet" class="form-label">Chi tiết</label>
+            <input type="text" class="form-control" id="edit_item_chi_tiet" name="chi_tiet">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+          <button type="submit" class="btn btn-primary">Lưu</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+function editMoTa(giaKey, moTa) {
+  document.getElementById('edit_mo_ta_vat_tu').value = moTa;
+  document.getElementById('editMoTaForm').action = '/noi-bo/quan-ly-bao-gia/vat-tu/' + giaKey + '/cap-nhat-mo-ta';
+  new bootstrap.Modal(document.getElementById('editMoTaModal')).show();
+}
+
+function editCategory(giaKey, catIndex, name) {
+  document.getElementById('edit_category_name').value = name;
+  document.getElementById('editCategoryForm').action = '/noi-bo/quan-ly-bao-gia/vat-tu/' + giaKey + '/sua-category/' + catIndex;
+  new bootstrap.Modal(document.getElementById('editCategoryModal')).show();
+}
+
+function editItem(giaKey, catIndex, itemIndex, ten, chiTiet) {
+  document.getElementById('edit_item_ten').value = ten;
+  document.getElementById('edit_item_chi_tiet').value = chiTiet || '';
+  document.getElementById('editItemForm').action = '/noi-bo/quan-ly-bao-gia/vat-tu/' + giaKey + '/sua-item/' + catIndex + '/' + itemIndex;
+  new bootstrap.Modal(document.getElementById('editItemModal')).show();
+}
+</script>
+{% endblock %}
+

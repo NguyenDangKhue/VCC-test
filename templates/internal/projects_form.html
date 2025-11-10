@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Tạo' if mode == 'create' else 'Sửa' }} dự án hình ảnh - Nội bộ{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">{{ 'Tạo' if mode == 'create' else 'Sửa' }} dự án hình ảnh</h2>
+    <a href="{{ url_for('projects_list') }}" class="btn btn-outline-secondary">← Quay lại</a>
+  </div>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-body">
+          <form method="POST">
+            <div class="mb-3">
+              <label for="chu_dau_tu" class="form-label">Chủ đầu tư <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="chu_dau_tu" name="chu_dau_tu" value="{{ project.chu_dau_tu or '' }}" required>
+            </div>
+            <div class="mb-3">
+              <label for="quy_mo_du_an" class="form-label">Quy mô dự án</label>
+              <input type="text" class="form-control" id="quy_mo_du_an" name="quy_mo_du_an" value="{{ project.quy_mo_du_an or '' }}" placeholder="Ví dụ: 200m², 3 tầng">
+            </div>
+            <div class="mb-3">
+              <label for="dia_chi_du_an" class="form-label">Địa chỉ dự án <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="dia_chi_du_an" name="dia_chi_du_an" value="{{ project.dia_chi_du_an or '' }}" required>
+            </div>
+            <div class="mb-3">
+              <label for="ngay_khoi_cong" class="form-label">Ngày khởi công</label>
+              <input type="date" class="form-control" id="ngay_khoi_cong" name="ngay_khoi_cong" value="{{ project.ngay_khoi_cong or '' }}">
+              <small class="text-muted">Ngày tháng năm bắt đầu thực hiện công trình</small>
+            </div>
+            <button type="submit" class="btn btn-brand">{{ 'Tạo' if mode == 'create' else 'Cập nhật' }} dự án</button>
+          </form>
+        </div>
+      </div>
+
+      {% if mode == 'edit' %}
+      <div class="card mt-4">
+        <div class="card-header">
+          <h5 class="mb-0">Quản lý hình ảnh</h5>
+        </div>
+        <div class="card-body">
+          <form method="POST" action="{{ url_for('projects_upload_images', project_id=project.id) }}" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="images" class="form-label">Chọn hình ảnh</label>
+              <input type="file" class="form-control" id="images" name="images" multiple accept="image/*" required>
+              <small class="text-muted">Có thể chọn nhiều hình cùng lúc</small>
+            </div>
+            <div class="mb-3">
+              <label for="progress" class="form-label">Tiến độ</label>
+              <select class="form-select" id="progress" name="progress" required>
+                {% for option in progress_options %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <button type="submit" class="btn btn-brand">Tải lên hình ảnh</button>
+          </form>
+
+          {% if project.images %}
+          <hr class="my-4">
+          <h6>Danh sách hình ảnh ({{ project.images|length }})</h6>
+          <div class="row g-3 mt-2">
+            {% for image in project.images %}
+            <div class="col-md-4 col-lg-3">
+              <div class="card">
+                <img src="{{ url_for('serve_project_image', subpath=project.id + '/' + image.filename) }}" class="card-img-top" style="height: 150px; object-fit: cover;" alt="{{ image.filename }}">
+                <div class="card-body p-2">
+                  <small class="d-block text-muted mb-2">{{ image.progress }}</small>
+                  <form method="POST" action="{{ url_for('projects_update_progress', project_id=project.id, image_id=image.id) }}" class="mb-2">
+                    <select name="progress" class="form-select form-select-sm" onchange="this.form.submit()">
+                      {% for option in progress_options %}
+                      <option value="{{ option }}" {% if image.progress == option %}selected{% endif %}>{{ option }}</option>
+                      {% endfor %}
+                    </select>
+                  </form>
+                  <form method="POST" action="{{ url_for('projects_delete_image', project_id=project.id, image_id=image.id) }}" onsubmit="return confirm('Xóa hình này?');">
+                    <button type="submit" class="btn btn-sm btn-outline-danger w-100">Xóa</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% else %}
+          <div class="alert alert-info mt-3">
+            Chưa có hình ảnh nào. Hãy tải lên hình ảnh đầu tiên.
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "gia_1",
+    "gia": 3650000,
+    "mo_ta": "3.650.000 VNĐ/m²",
+    "active": true,
+    "order": 1
+  },
+  {
+    "id": "gia_2",
+    "gia": 3950000,
+    "mo_ta": "3.950.000 VNĐ/m²",
+    "active": true,
+    "order": 2
+  }
+]
