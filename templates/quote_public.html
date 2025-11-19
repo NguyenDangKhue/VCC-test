@@ -1,0 +1,341 @@
+{% extends "base.html" %}
+{% block title %}Báo giá - Viettel Construction Lâm Đồng{% endblock %}
+{% block content %}
+<section class="page-header text-white">
+  <div class="container py-5">
+    <h1 class="fw-bold">Báo giá</h1>
+    <p class="mb-0">Tính toán báo giá xây dựng cho công trình của bạn.</p>
+  </div>
+  <div class="hero-gradient"></div>
+</section>
+
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <div class="card shadow-sm mb-4">
+          <div class="card-body p-4">
+            <h3 class="mb-4">Công cụ tính báo giá xây dựng</h3>
+            <p class="text-muted mb-4">
+              Vui lòng điền thông tin dưới đây để nhận báo giá sơ bộ cho công trình của bạn.
+            </p>
+            
+            <form id="quotePublicForm">
+              <!-- Loại nhà xây dựng -->
+              <div class="mb-4">
+                <label for="loai_nha" class="form-label fw-bold">
+                  Loại nhà xây dựng <span class="text-danger">*</span>
+                </label>
+                <select class="form-select" id="loai_nha" name="loai_nha" required>
+                  <option value="">-- Chọn loại nhà --</option>
+                  <option value="nha_pho_lien_ke">Nhà phố liền kề</option>
+                  <option value="nha_cap_4_mai_nhat">Nhà cấp 4 mái nhật</option>
+                  <option value="nha_2_3_tang_mai_nhat">Nhà 2-3 tầng mái nhật</option>
+                  <option value="biet_thu_hien_dai">Biệt thự hiện đại</option>
+                  <option value="biet_thu_tan_co_dien">Biệt thự lâu dài tân cổ điển</option>
+                </select>
+              </div>
+
+              <!-- Hình thức xây dựng -->
+              <div class="mb-4">
+                <label for="hinh_thuc_xay_dung" class="form-label fw-bold">
+                  Hình thức xây dựng <span class="text-danger">*</span>
+                </label>
+                <select class="form-select" id="hinh_thuc_xay_dung" name="hinh_thuc_xay_dung" required>
+                  <option value="">-- Chọn hình thức xây dựng --</option>
+                  <option value="xay_tho">Xây thô</option>
+                  <option value="xay_tho_hoan_thien_trung_binh">Xây thô + hoàn thiện trung bình</option>
+                  <option value="xay_tho_hoan_thien_trung_binh_kha">Xây thô + hoàn thiện trung bình khá</option>
+                  <option value="xay_tho_hoan_thien_tot">Xây thô + hoàn thiện tốt</option>
+                  <option value="xay_tho_hoan_thien_cao_cap">Xây thô + hoàn thiện cao cấp</option>
+                </select>
+              </div>
+
+              <!-- Diện tích và Số tầng -->
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <label for="dien_tich" class="form-label fw-bold">
+                    Diện tích (m²) <span class="text-danger">*</span>
+                  </label>
+                  <input type="number" class="form-control" id="dien_tich" name="dien_tich" 
+                         min="0" step="0.01" placeholder="Nhập diện tích" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="so_tang" class="form-label fw-bold">
+                    Số tầng <span class="text-danger">*</span>
+                  </label>
+                  <input type="number" class="form-control" id="so_tang" name="so_tang" 
+                         min="1" step="1" placeholder="Nhập số tầng" required>
+                </div>
+              </div>
+
+              <!-- Địa điểm xây dựng -->
+              <div class="mb-4">
+                <h5 class="mb-3">Địa điểm xây dựng</h5>
+                
+                <!-- Chọn tỉnh thành (cũ) -->
+                <div class="mb-3">
+                  <label for="tinh_thanh_cu" class="form-label fw-bold">
+                    Chọn tỉnh thành (cũ) <span class="text-danger">*</span>
+                  </label>
+                  <select class="form-select" id="tinh_thanh_cu" name="tinh_thanh_cu" required>
+                    <option value="">-- Chọn tỉnh thành --</option>
+                    {% for province_key, province_data in administrative_units.items() %}
+                    <option value="{{ province_key }}">{{ province_data.name }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+
+                <!-- Chọn Thành phố, quận huyện (cũ) -->
+                <div class="mb-3">
+                  <label for="thanh_pho_quan_huyen_cu" class="form-label fw-bold">
+                    Chọn Thành phố, quận huyện (cũ) <span class="text-danger">*</span>
+                  </label>
+                  <select class="form-select" id="thanh_pho_quan_huyen_cu" name="thanh_pho_quan_huyen_cu" required disabled>
+                    <option value="">-- Vui lòng chọn tỉnh thành trước --</option>
+                  </select>
+                </div>
+
+                <!-- Chọn xã -->
+                <div class="mb-3">
+                  <label for="xa" class="form-label fw-bold">
+                    Chọn xã <span class="text-danger">*</span>
+                  </label>
+                  <select class="form-select" id="xa" name="xa" required disabled>
+                    <option value="">-- Vui lòng chọn thành phố/quận huyện trước --</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Kết quả báo giá (sẽ được tính toán) -->
+              <div class="card mb-4 card-neutral" id="resultSection" style="display: none;">
+                <div class="card-body">
+                  <h5 class="mb-3">Kết quả báo giá sơ bộ</h5>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <p class="mb-1"><strong>Loại nhà:</strong></p>
+                      <p id="resultLoaiNha" class="text-muted">-</p>
+                    </div>
+                    <div class="col-md-6">
+                      <p class="mb-1"><strong>Hình thức xây dựng:</strong></p>
+                      <p id="resultHinhThuc" class="text-muted">-</p>
+                    </div>
+                    <div class="col-md-6">
+                      <p class="mb-1"><strong>Diện tích:</strong></p>
+                      <p id="resultDienTich" class="text-muted">-</p>
+                    </div>
+                    <div class="col-md-6">
+                      <p class="mb-1"><strong>Số tầng:</strong></p>
+                      <p id="resultSoTang" class="text-muted">-</p>
+                    </div>
+                    <div class="col-md-12">
+                      <p class="mb-1"><strong>Địa điểm:</strong></p>
+                      <p id="resultDiaDiem" class="text-muted">-</p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="text-center">
+                    <p class="mb-2 text-muted">Báo giá này chỉ mang tính chất tham khảo.</p>
+                    <p class="mb-0">Vui lòng liên hệ với chúng tôi để nhận báo giá chính xác.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button type="reset" class="btn btn-outline-secondary" onclick="resetForm()">
+                  <i class="bi bi-arrow-clockwise me-2"></i>Làm mới
+                </button>
+                <button type="submit" class="btn btn-brand">
+                  <i class="bi bi-calculator me-2"></i>Tính báo giá
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Thông tin liên hệ -->
+        <div class="text-center">
+          <p class="text-muted mb-2">Cần tư vấn chi tiết? Liên hệ với chúng tôi:</p>
+          <p class="mb-1">
+            <i class="bi bi-telephone me-2"></i>
+            <strong>Hotline:</strong> <a href="tel:1900123456" class="text-decoration-none">1900 123 456</a>
+          </p>
+          <p class="mb-0">
+            <i class="bi bi-envelope me-2"></i>
+            <strong>Email:</strong> <a href="mailto:info@viettelconstruction.vn" class="text-decoration-none">info@viettelconstruction.vn</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Load dữ liệu từ server
+const administrativeUnitsData = {{ administrative_units | tojson | safe }};
+
+// Mapping loại nhà
+const loaiNhaMap = {
+  'nha_pho_lien_ke': 'Nhà phố liền kề',
+  'nha_cap_4_mai_nhat': 'Nhà cấp 4 mái nhật',
+  'nha_2_3_tang_mai_nhat': 'Nhà 2-3 tầng mái nhật',
+  'biet_thu_hien_dai': 'Biệt thự hiện đại',
+  'biet_thu_tan_co_dien': 'Biệt thự lâu dài tân cổ điển'
+};
+
+// Mapping hình thức xây dựng
+const hinhThucMap = {
+  'xay_tho': 'Xây thô',
+  'xay_tho_hoan_thien_trung_binh': 'Xây thô + hoàn thiện trung bình',
+  'xay_tho_hoan_thien_trung_binh_kha': 'Xây thô + hoàn thiện trung bình khá',
+  'xay_tho_hoan_thien_tot': 'Xây thô + hoàn thiện tốt',
+  'xay_tho_hoan_thien_cao_cap': 'Xây thô + hoàn thiện cao cấp'
+};
+
+// Xử lý khi chọn tỉnh thành
+document.getElementById('tinh_thanh_cu').addEventListener('change', function() {
+  const provinceKey = this.value;
+  const districtSelect = document.getElementById('thanh_pho_quan_huyen_cu');
+  const wardSelect = document.getElementById('xa');
+  
+  // Reset và disable các select phụ thuộc
+  districtSelect.innerHTML = '<option value="">-- Vui lòng chọn tỉnh thành trước --</option>';
+  districtSelect.disabled = !provinceKey;
+  
+  wardSelect.innerHTML = '<option value="">-- Vui lòng chọn thành phố/quận huyện trước --</option>';
+  wardSelect.disabled = true;
+  
+  if (provinceKey && administrativeUnitsData[provinceKey]) {
+    const province = administrativeUnitsData[provinceKey];
+    const districts = province.districts || {};
+    
+    // Populate districts
+    districtSelect.innerHTML = '<option value="">-- Chọn thành phố/quận huyện --</option>';
+    for (const [districtKey, districtData] of Object.entries(districts)) {
+      const option = document.createElement('option');
+      option.value = districtKey;
+      option.textContent = districtData.name;
+      districtSelect.appendChild(option);
+    }
+    districtSelect.disabled = false;
+  }
+});
+
+// Xử lý khi chọn thành phố/quận huyện
+document.getElementById('thanh_pho_quan_huyen_cu').addEventListener('change', function() {
+  const provinceKey = document.getElementById('tinh_thanh_cu').value;
+  const districtKey = this.value;
+  const wardSelect = document.getElementById('xa');
+  
+  // Reset ward select
+  wardSelect.innerHTML = '<option value="">-- Vui lòng chọn thành phố/quận huyện trước --</option>';
+  wardSelect.disabled = !districtKey;
+  
+  if (provinceKey && districtKey && administrativeUnitsData[provinceKey]) {
+    const province = administrativeUnitsData[provinceKey];
+    const districts = province.districts || {};
+    const district = districts[districtKey];
+    
+    if (district && district.wards) {
+      // Populate wards
+      wardSelect.innerHTML = '<option value="">-- Chọn xã --</option>';
+      district.wards.forEach(ward => {
+        const option = document.createElement('option');
+        let wardValue, wardText;
+        
+        // Handle both old format (string) and new format (object)
+        if (typeof ward === 'string') {
+          wardValue = ward;
+          wardText = ward;
+        } else if (ward && ward.name_new) {
+          wardValue = ward.name_new;
+          // Display format: "Tên mới (Tên cũ)" if name_old exists
+          if (ward.name_old) {
+            wardText = `${ward.name_new} (${ward.name_old})`;
+          } else {
+            wardText = ward.name_new;
+          }
+        } else {
+          return; // Skip invalid entries
+        }
+        
+        option.value = wardValue;
+        option.textContent = wardText;
+        option.setAttribute('data-ward-new', wardValue);
+        if (ward && ward.name_old) {
+          option.setAttribute('data-ward-old', ward.name_old);
+        }
+        wardSelect.appendChild(option);
+      });
+      wardSelect.disabled = false;
+    }
+  }
+});
+
+// Xử lý submit form
+document.getElementById('quotePublicForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  const formData = {
+    loaiNha: document.getElementById('loai_nha').value,
+    hinhThuc: document.getElementById('hinh_thuc_xay_dung').value,
+    dienTich: parseFloat(document.getElementById('dien_tich').value) || 0,
+    soTang: parseInt(document.getElementById('so_tang').value) || 0,
+    tinhThanh: document.getElementById('tinh_thanh_cu').value,
+    thanhPhoQuanHuyen: document.getElementById('thanh_pho_quan_huyen_cu').value,
+    xa: document.getElementById('xa').value
+  };
+  
+  // Validate
+  if (!formData.loaiNha || !formData.hinhThuc || !formData.dienTich || !formData.soTang || 
+      !formData.tinhThanh || !formData.thanhPhoQuanHuyen || !formData.xa) {
+    alert('Vui lòng điền đầy đủ thông tin!');
+    return;
+  }
+  
+  // Get display names
+  const provinceName = administrativeUnitsData[formData.tinhThanh]?.name || '';
+  const districtName = administrativeUnitsData[formData.tinhThanh]?.districts[formData.thanhPhoQuanHuyen]?.name || '';
+  
+  // Get ward display name (from selected option text which includes both new and old names)
+  const wardSelect = document.getElementById('xa');
+  const selectedOption = wardSelect.options[wardSelect.selectedIndex];
+  const wardDisplayName = selectedOption ? selectedOption.textContent : formData.xa;
+  
+  // Display results
+  document.getElementById('resultLoaiNha').textContent = loaiNhaMap[formData.loaiNha] || '-';
+  document.getElementById('resultHinhThuc').textContent = hinhThucMap[formData.hinhThuc] || '-';
+  document.getElementById('resultDienTich').textContent = formData.dienTich.toLocaleString('vi-VN') + ' m²';
+  document.getElementById('resultSoTang').textContent = formData.soTang + ' tầng';
+  document.getElementById('resultDiaDiem').textContent = `${wardDisplayName}, ${districtName}, ${provinceName}`;
+  
+  // Show result section
+  document.getElementById('resultSection').style.display = 'block';
+  
+  // Scroll to result
+  document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+});
+
+// Reset form
+function resetForm() {
+  document.getElementById('quotePublicForm').reset();
+  document.getElementById('thanh_pho_quan_huyen_cu').innerHTML = '<option value="">-- Vui lòng chọn tỉnh thành trước --</option>';
+  document.getElementById('thanh_pho_quan_huyen_cu').disabled = true;
+  document.getElementById('xa').innerHTML = '<option value="">-- Vui lòng chọn thành phố/quận huyện trước --</option>';
+  document.getElementById('xa').disabled = true;
+  document.getElementById('resultSection').style.display = 'none';
+}
+</script>
+
+<style>
+.text-brand {
+  color: var(--brand-red);
+}
+
+.card-neutral {
+  background-color: var(--brand-gray-50, #f8f9fa);
+  border: 1px solid var(--brand-gray-200, #dee2e6);
+}
+</style>
+{% endblock %}
+

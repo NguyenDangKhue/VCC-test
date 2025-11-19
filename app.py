@@ -26,6 +26,7 @@ def create_app() -> Flask:
     gia_hoan_thien_file = data_dir / "gia_hoan_thien.json"
     vat_tu_file = data_dir / "vat_tu.json"
     hero_images_file = data_dir / "hero_images.json"
+    administrative_units_file = data_dir / "administrative_units.json"
 
     def load_users():
         if users_file.exists():
@@ -299,6 +300,12 @@ def create_app() -> Flask:
                 return json.load(f)
         return []
 
+    def load_administrative_units():
+        if administrative_units_file.exists():
+            with open(administrative_units_file, "r", encoding="utf-8") as f:
+                return json.load(f)
+        return {}
+
     def save_hero_images(hero_images):
         with open(hero_images_file, "w", encoding="utf-8") as f:
             json.dump(hero_images, f, ensure_ascii=False, indent=2)
@@ -366,15 +373,22 @@ def create_app() -> Flask:
 
     @app.route("/bao-gia")
     def quote():
-        hang_muc = load_hang_muc()
-        gia_xay_tho = [g for g in load_gia_xay_tho() if g.get("active", True)]
-        gia_hoan_thien = [g for g in load_gia_hoan_thien() if g.get("active", True)]
-        vat_tu = load_vat_tu()
-        # Sort by order
-        hang_muc.sort(key=lambda x: x.get("order", 999))
-        gia_xay_tho.sort(key=lambda x: x.get("order", 999))
-        gia_hoan_thien.sort(key=lambda x: x.get("order", 999))
-        return render_template("quote.html", hang_muc=hang_muc, gia_xay_tho=gia_xay_tho, gia_hoan_thien=gia_hoan_thien, vat_tu=vat_tu)
+        user = current_user()
+        # If user is logged in, show internal quote template
+        if user:
+            hang_muc = load_hang_muc()
+            gia_xay_tho = [g for g in load_gia_xay_tho() if g.get("active", True)]
+            gia_hoan_thien = [g for g in load_gia_hoan_thien() if g.get("active", True)]
+            vat_tu = load_vat_tu()
+            # Sort by order
+            hang_muc.sort(key=lambda x: x.get("order", 999))
+            gia_xay_tho.sort(key=lambda x: x.get("order", 999))
+            gia_hoan_thien.sort(key=lambda x: x.get("order", 999))
+            return render_template("quote.html", hang_muc=hang_muc, gia_xay_tho=gia_xay_tho, gia_hoan_thien=gia_hoan_thien, vat_tu=vat_tu)
+        # If not logged in, show public quote template
+        else:
+            administrative_units = load_administrative_units()
+            return render_template("quote_public.html", administrative_units=administrative_units)
 
     @app.route("/hinh-anh")
     def gallery():

@@ -1,0 +1,286 @@
+{
+  "lam_dong_cu": {
+    "name": "Tỉnh Lâm Đồng (cũ)",
+    "districts": {
+      "lac_duong": {
+        "name": "Huyện Lạc Dương (cũ)",
+        "wards": [
+          {"name_new": "Lạc Dương", "name_old": "Đạ Sar, Đạ Nhim, Đạ Chais"}
+        ]
+      },
+      "don_duong": {
+        "name": "Huyện Đơn Dương (cũ)",
+        "wards": [
+          {"name_new": "Đơn Dương", "name_old": "Thạnh Mỹ, Đạ Ròn, Tu Tra"},
+          {"name_new": "Ka Đô", "name_old": "Lạc Lâm, Ka Đô"},
+          {"name_new": "Quảng Lập", "name_old": "Ka Đơn, Quảng Lập"},
+          {"name_new": "D'Ran", "name_old": "D'Ran, Lạc Xuân"}
+        ]
+      },
+      "duc_trong": {
+        "name": "Huyện Đức Trọng (cũ)",
+        "wards": [
+          {"name_new": "Hiệp Thạnh", "name_old": "Hiệp An, Liên Hiệp, Hiệp Thạnh"},
+          {"name_new": "Đức Trọng", "name_old": "Liên Nghĩa, Phú Hội"},
+          {"name_new": "Tân Hội", "name_old": "Tân Thành, N'Thôn Hạ, Tân Hội"},
+          {"name_new": "Tà Hine", "name_old": "Ninh Loan, Đà Loan, Tà Hine"},
+          {"name_new": "Tà Năng", "name_old": "Đa Quyn, Tà Năng"}
+        ]
+      },
+      "lam_ha": {
+        "name": "Huyện Lâm Hà (cũ)",
+        "wards": [
+          {"name_new": "Đinh Văn Lâm Hà", "name_old": "Bình Thạnh, Tân Văn, Đinh Văn"},
+          {"name_new": "Phú Sơn Lâm Hà", "name_old": "Phú Sơn, Đạ Đờn"},
+          {"name_new": "Nam Hà Lâm Hà", "name_old": "Nam Hà, Phi Tô"},
+          {"name_new": "Nam Ban Lâm Hà", "name_old": "Nam Ban, Đông Thanh, Mê Linh, Gia Lâm"},
+          {"name_new": "Tân Hà Lâm Hà", "name_old": "Tân Hà, Hoài Đức, Đan Phượng, Liên Hà"},
+          {"name_new": "Phúc Thọ Lâm Hà", "name_old": "Phúc Thọ, Tân Thanh"}
+        ]
+      },
+      "dam_rong": {
+        "name": "Huyện Đam Rông (cũ)",
+        "wards": [
+          {"name_new": "Đam Rông 1", "name_old": "Phi Liêng, Đạ K'Nàng"},
+          {"name_new": "Đam Rông 2", "name_old": "Rô Men, Liêng Srônh"},
+          {"name_new": "Đam Rông 3", "name_old": "Đạ Rsal, Đạ M'Rông"},
+          {"name_new": "Đam Rông 4", "name_old": "Đạ Tông, Đạ Long, Đưng K'Nớ"}
+        ]
+      },
+      "di_linh": {
+        "name": "Huyện Di Linh (cũ)",
+        "wards": [
+          {"name_new": "Di Linh", "name_old": "Di Linh, Liên Đầm, Tân Châu, Gung Ré"},
+          {"name_new": "Hòa Ninh", "name_old": "Đinh Trang Hòa, Hòa Trung, Hòa Ninh"},
+          {"name_new": "Hòa Bắc", "name_old": "Hòa Nam, Hòa Bắc"},
+          {"name_new": "Đinh Trang Thượng", "name_old": "Tân Lâm, Tân Thượng, Đinh Trang Thượng"},
+          {"name_new": "Bảo Thuận", "name_old": "Đinh Lạc, Tân Nghĩa, Bảo Thuận"},
+          {"name_new": "Sơn Điền", "name_old": "Gia Bắc, Sơn Điền"},
+          {"name_new": "Gia Hiệp", "name_old": "Tam Bố, Gia Hiệp"}
+        ]
+      },
+      "bao_lam": {
+        "name": "Huyện Bảo Lâm (cũ)",
+        "wards": [
+          {"name_new": "Bảo Lâm 1", "name_old": "Lộc Thắng, Lộc Quảng, Lộc Ngãi"},
+          {"name_new": "Bảo Lâm 2", "name_old": "Lộc An, Lộc Đức, Tân Lạc"},
+          {"name_new": "Bảo Lâm 3", "name_old": "Lộc Thành, Lộc Nam"},
+          {"name_new": "Bảo Lâm 4", "name_old": "Lộc Phú, Lộc Lâm, B'Lá"},
+          {"name_new": "Bảo Lâm 5", "name_old": "Lộc Bảo, Lộc Bắc"}
+        ]
+      },
+      "da_huoai": {
+        "name": "Huyện Đạ Huoai (cũ)",
+        "wards": [
+          {"name_new": "Đạ Huoai", "name_old": "Ma Đa Guôi, Đạ Oai"},
+          {"name_new": "Đạ Huoai 2", "name_old": "Đạ M'ri, Hà Lâm"},
+          {"name_new": "Đạ Huoai 3", "name_old": "Bà Gia (đổi tên)"}
+        ]
+      },
+      "da_teh": {
+        "name": "Huyện Đạ Tẻh (cũ)",
+        "wards": [
+          {"name_new": "Đạ Tẻh", "name_old": "Đạ Tẻh, An Nhơn, Đạ Lây"},
+          {"name_new": "Đạ Tẻh 2", "name_old": "Quảng Trị, Đạ Pal, Đạ Kho"},
+          {"name_new": "Đạ Tẻh 3", "name_old": "Mỹ Đức, Quốc Oai"}
+        ]
+      },
+      "cat_tien": {
+        "name": "Huyện Cát Tiên (cũ)",
+        "wards": [
+          {"name_new": "Cát Tiên", "name_old": "Cát Tiên, Nam Ninh, Quảng Ngãi"},
+          {"name_new": "Cát Tiên 2", "name_old": "Phước Cát, Phước Cát 2, Đức Phổ"},
+          {"name_new": "Cát Tiên 3", "name_old": "Gia Viễn, Tiên Hoàng, Đồng Nai Thượng"}
+        ]
+      },
+      "da_lat": {
+        "name": "Thành phố Đà Lạt (cũ)",
+        "wards": [
+          {"name_new": "Phường Xuân Hương", "name_old": "P1, P2, P3, P4, P10"},
+          {"name_new": "Phường Cam Ly", "name_old": "P5, P6, Tà Nung"},
+          {"name_new": "Phường Lâm Viên", "name_old": "P8, P9, P12"},
+          {"name_new": "Phường Xuân Trường", "name_old": "P11, Xuân Thọ, Xuân Trường, Trạm Hành"},
+          {"name_new": "Phường Lang Biang", "name_old": "P7, Lạc Dương, Lát"}
+        ]
+      },
+      "bao_loc": {
+        "name": "Thành phố Bảo Lộc (cũ)",
+        "wards": [
+          {"name_new": "Phường 1 – Bảo Lộc", "name_old": "P1, Lộc Phát, Lộc Thanh"},
+          {"name_new": "Phường 2 – Bảo Lộc", "name_old": "P2, Lộc Tân, Đam Bri"},
+          {"name_new": "Phường 3 – Bảo Lộc", "name_old": "Lộc Tiến, Lộc Châu, Đại Lào"},
+          {"name_new": "Phường B'Lao", "name_old": "Lộc Sơn, B'Lao, Lộc Nga"}
+        ]
+      },
+      "xa_giu_nguyen": {
+        "name": "Xã giữ nguyên",
+        "wards": [
+          {"name_new": "Xã Quảng Hòa", "name_old": "Quảng Hòa"},
+          {"name_new": "Xã Quảng Sơn", "name_old": "Quảng Sơn"},
+          {"name_new": "Xã Quảng Trực", "name_old": "Quảng Trực"},
+          {"name_new": "Xã Ninh Gia", "name_old": "Ninh Gia"}
+        ]
+      }
+    }
+  },
+  "binh_thuan_cu": {
+    "name": "Tỉnh Bình Thuận (cũ)",
+    "districts": {
+      "tuy_phong": {
+        "name": "Huyện Tuy Phong (cũ)",
+        "wards": [
+          {"name_new": "Vĩnh Hảo", "name_old": "Vĩnh Tân, Vĩnh Hảo"},
+          {"name_new": "Liên Hương", "name_old": "Liên Hương, Bình Thạnh, Phước Thể, Phú Lạc"},
+          {"name_new": "Tuy Phong", "name_old": "Phan Dũng, một phần Phong Phú"},
+          {"name_new": "Phan Rí Cửa", "name_old": "Phan Rí Cửa, Chí Công, Hòa Minh, phần còn lại Phong Phú"}
+        ]
+      },
+      "bac_binh": {
+        "name": "Huyện Bắc Bình (cũ)",
+        "wards": [
+          {"name_new": "Bắc Bình", "name_old": "Chợ Lầu, Phan Hòa, Phan Hiệp, Phan Rí Thành"},
+          {"name_new": "Hồng Thái", "name_old": "Phan Thanh, Hồng Thái, phần Hòa Thắng"},
+          {"name_new": "Hải Ninh", "name_old": "Bình An, Phan Điền, Hải Ninh"},
+          {"name_new": "Phan Sơn", "name_old": "Phan Lâm, Phan Sơn"},
+          {"name_new": "Sông Lũy", "name_old": "Phan Tiến, Bình Tân, Sông Lũy"},
+          {"name_new": "Lương Sơn", "name_old": "Lương Sơn, Sông Bình"},
+          {"name_new": "Hòa Thắng", "name_old": "Hồng Phong, phần còn lại Hòa Thắng"}
+        ]
+      },
+      "ham_thuan_bac": {
+        "name": "Huyện Hàm Thuận Bắc (cũ)",
+        "wards": [
+          {"name_new": "Đông Giang", "name_old": "Đông Tiến, Đông Giang"},
+          {"name_new": "La Dạ", "name_old": "Đa Mi, La Dạ"},
+          {"name_new": "Hàm Thuận Bắc", "name_old": "Thuận Hòa, Hàm Trí, Hàm Phú"},
+          {"name_new": "Hàm Thuận", "name_old": "Ma Lâm, Thuận Minh, Hàm Đức"},
+          {"name_new": "Hồng Sơn", "name_old": "Hồng Liêm, Hồng Sơn"},
+          {"name_new": "Hàm Liêm", "name_old": "Hàm Chính, Hàm Liêm"}
+        ]
+      },
+      "phan_thiet": {
+        "name": "Thành phố Phan Thiết (cũ)",
+        "wards": [
+          {"name_new": "Phường Hàm Thắng", "name_old": "Xuân An, Phú Long, Hàm Thắng"},
+          {"name_new": "Phường Bình Thuận", "name_old": "Phú Tài, Phong Nẫm, Hàm Hiệp"},
+          {"name_new": "Phường Mũi Né", "name_old": "Hàm Tiến, Mũi Né, Thiện Nghiệp"},
+          {"name_new": "Phường Phú Thủy", "name_old": "Thanh Hải, Phú Hài, Phú Thủy"},
+          {"name_new": "Phường Phan Thiết", "name_old": "Phú Trinh, Lạc Đạo, Bình Hưng"},
+          {"name_new": "Phường Tiến Thành", "name_old": "Đức Long, Tiến Thành"}
+        ]
+      },
+      "la_gi": {
+        "name": "Thị xã La Gi (cũ)",
+        "wards": [
+          {"name_new": "Phường La Gi", "name_old": "Tân An, Bình Tân, Tân Thiện, Tân Bình"},
+          {"name_new": "Phường Phước Hội", "name_old": "Phước Lộc, Phước Hội, Tân Phước"}
+        ]
+      },
+      "ham_thuan_nam": {
+        "name": "Huyện Hàm Thuận Nam (cũ)",
+        "wards": [
+          {"name_new": "Tuyên Quang", "name_old": "Tiến Lợi, Hàm Mỹ"},
+          {"name_new": "Hàm Thạnh", "name_old": "Mỹ Thạnh, Hàm Cần, Hàm Thạnh"},
+          {"name_new": "Hàm Kiệm", "name_old": "Mương Mán, Hàm Cường, Hàm Kiệm"},
+          {"name_new": "Tân Thành", "name_old": "Tân Thành, Thuận Quý, Tân Thuận"},
+          {"name_new": "Hàm Thuận Nam", "name_old": "Thuận Nam, Hàm Minh"},
+          {"name_new": "Tân Lập", "name_old": "Sông Phan, Tân Lập"}
+        ]
+      },
+      "ham_tan": {
+        "name": "Huyện Hàm Tân (cũ)",
+        "wards": [
+          {"name_new": "Tân Minh", "name_old": "Tân Minh, Tân Đức, Tân Phúc"},
+          {"name_new": "Hàm Tân", "name_old": "Tân Hà, Tân Xuân, Tân Nghĩa"},
+          {"name_new": "Sơn Mỹ", "name_old": "Tân Thắng, Thắng Hải, Sơn Mỹ"},
+          {"name_new": "Tân Hải", "name_old": "Tân Tiến, Tân Hải"},
+          {"name_new": "Nghị Đức", "name_old": "Đức Phú, Nghị Đức"},
+          {"name_new": "Bắc Ruộng", "name_old": "Măng Tố, Bắc Ruộng"},
+          {"name_new": "Đồng Kho", "name_old": "Huy Khiêm, La Ngâu, Đức Bình, Đồng Kho"}
+        ]
+      },
+      "tanh_linh": {
+        "name": "Huyện Tánh Linh (cũ)",
+        "wards": [
+          {"name_new": "Tánh Linh", "name_old": "Lạc Tánh, Gia An, Đức Thuận"},
+          {"name_new": "Suối Kiết", "name_old": "Gia Huynh, Suối Kiết"},
+          {"name_new": "Nam Thành", "name_old": "Mê Pu, Sùng Nhơn, Đa Kai"},
+          {"name_new": "Đức Linh", "name_old": "Võ Xu, Nam Chính, Vũ Hòa"},
+          {"name_new": "Hoài Đức", "name_old": "Đức Tài, Đức Tín, Đức Hạnh"},
+          {"name_new": "Trà Tân", "name_old": "Tân Hà, Đông Hà, Trà Tân"}
+        ]
+      },
+      "phu_qui": {
+        "name": "Đặc khu Phú Quý (cũ)",
+        "wards": [
+          {"name_new": "Đặc khu Phú Quý", "name_old": "Long Hải, Ngũ Phụng, Tam Thanh"}
+        ]
+      }
+    }
+  },
+  "dak_nong_cu": {
+    "name": "Tỉnh Đắk Nông (cũ)",
+    "districts": {
+      "cu_jut": {
+        "name": "Huyện Cư Jút (cũ)",
+        "wards": [
+          {"name_new": "Đắk Wil", "name_old": "Ea Pô, Đắk Wil"},
+          {"name_new": "Nam Dong", "name_old": "Đắk D'rông, Nam Dong"},
+          {"name_new": "Cư Jút", "name_old": "Ea T'ling, Trúc Sơn, Tâm Thắng, Cư K'nia"},
+          {"name_new": "Thuận An", "name_old": "Đắk Lao, Thuận An"}
+        ]
+      },
+      "dak_mil": {
+        "name": "Huyện Đắk Mil (cũ)",
+        "wards": [
+          {"name_new": "Đức Lập", "name_old": "Đắk Mil, Đức Mạnh, Đức Minh"},
+          {"name_new": "Đắk Mil", "name_old": "Đắk Gằn, Đắk N'Drót, Đắk R'La"},
+          {"name_new": "Đắk Sắk", "name_old": "Nam Xuân, Long Sơn, Đắk Sắk"}
+        ]
+      },
+      "krong_no": {
+        "name": "Huyện Krông Nô (cũ)",
+        "wards": [
+          {"name_new": "Nam Đà", "name_old": "Buôn Choáh, Đắk Sôr, Nam Đà"},
+          {"name_new": "Krông Nô", "name_old": "Tân Thành, Đắk Drô, Đắk Mâm"},
+          {"name_new": "Nâm Nung", "name_old": "Nâm N'Đir, Nâm Nung"}
+        ]
+      },
+      "dak_song": {
+        "name": "Huyện Đắk Song (cũ)",
+        "wards": [
+          {"name_new": "Quảng Phú", "name_old": "Đức Xuyên, Đắk Nang, Quảng Phú"},
+          {"name_new": "Đắk Song", "name_old": "Đắk Môl, Đắk Hòa"},
+          {"name_new": "Đức An", "name_old": "Đức An, Đắk N'Drung, Nam Bình"},
+          {"name_new": "Thuận Hạnh", "name_old": "Thuận Hà, Thuận Hạnh"},
+          {"name_new": "Trường Xuân", "name_old": "Nâm N'Jang, Trường Xuân"}
+        ]
+      },
+      "ta_dung": {
+        "name": "Huyện Tà Đùng (cũ)",
+        "wards": [
+          {"name_new": "Tà Đùng", "name_old": "Đắk Som, Đắk R'Măng"},
+          {"name_new": "Quảng Khê", "name_old": "Đắk Plao, Quảng Khê"},
+          {"name_new": "Quảng Tân", "name_old": "Đắk Ngo, Quảng Tân"}
+        ]
+      },
+      "tuy_duc": {
+        "name": "Huyện Tuy Đức (cũ)",
+        "wards": [
+          {"name_new": "Tuy Đức", "name_old": "Quảng Tâm, Đắk R'Tíh, Đắk Búk So"},
+          {"name_new": "Kiến Đức", "name_old": "Kiến Đức, Đạo Nghĩa, Nghĩa Thắng, Kiến Thành"},
+          {"name_new": "Nhân Cơ", "name_old": "Nhân Đạo, Đắk Wer, Nhân Cơ"},
+          {"name_new": "Quảng Tín", "name_old": "Đắk Sin, Hưng Bình, Đắk Ru, Quảng Tín"}
+        ]
+      },
+      "gia_nghia": {
+        "name": "Thành phố Gia Nghĩa (cũ)",
+        "wards": [
+          {"name_new": "Phường Bắc Gia Nghĩa", "name_old": "Quảng Thành, Nghĩa Thành, Nghĩa Đức, Đắk Ha"},
+          {"name_new": "Phường Nam Gia Nghĩa", "name_old": "Nghĩa Phú, Nghĩa Tân, Đắk R'Moan"},
+          {"name_new": "Phường Đông Gia Nghĩa", "name_old": "Nghĩa Trung, Đắk Nia"}
+        ]
+      }
+    }
+  }
+}
