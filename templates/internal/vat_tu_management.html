@@ -44,7 +44,7 @@
   </div>
 
   <!-- Danh sách đơn giá và vật tư -->
-  {% for gia_key, vat_tu_info in vat_tu_list %}
+  {% for gia_key, vat_tu_info in vat_tu_xay_tho_list %}
   <div class="card mb-4">
     <div class="card-header d-flex justify-content-between align-items-center">
       <div>
@@ -150,7 +150,7 @@
   </div>
   {% endfor %}
 
-  {% if not vat_tu %}
+  {% if not vat_tu_xay_tho_list %}
   <div class="alert alert-info">
     Chưa có dữ liệu vật tư nào. Hãy tạo đơn giá đầu tiên.
   </div>

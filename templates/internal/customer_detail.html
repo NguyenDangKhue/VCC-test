@@ -106,6 +106,14 @@
                         <button class="btn btn-sm btn-outline-success">Hoàn thành</button>
                       </form>
                       {% endif %}
+                      {% if auth_user and auth_user.role == 'admin' %}
+                      <button class="btn btn-sm btn-outline-primary ms-2" type="button" onclick="editConsultation('{{ it.id }}', {{ it.tieu_de|tojson }}, {{ it.nhan_vien|tojson }}, {{ (it.thoi_han or "")|tojson }}, {{ it.ghi_chu|tojson }})">
+                        Sửa
+                      </button>
+                      <form method="post" action="{{ url_for('consultation_delete', ma_kh=customer.ma_khach_hang, consult_id=it.id) }}" class="d-inline-block ms-2" onsubmit="return confirm('Bạn có chắc chắn muốn xóa yêu cầu tư vấn này?');">
+                        <button class="btn btn-sm btn-outline-danger" type="submit">Xóa</button>
+                      </form>
+                      {% endif %}
                     </td>
                   </tr>
                   <tr class="bg-light">
@@ -173,6 +181,76 @@
     </div>
   </div>
   </section>
+
+<!-- Modal Sửa yêu cầu tư vấn -->
+<div class="modal fade" id="editConsultationModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Sửa yêu cầu tư vấn</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="post" id="editConsultationForm">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Tiêu đề yêu cầu</label>
+            <input name="tieu_de" id="edit_tieu_de" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Nhân viên thực hiện</label>
+            <select name="nhan_vien" id="edit_nhan_vien" class="form-select">
+              <option value="">-- Chọn nhân viên --</option>
+              {% for uname, u in users.items() %}
+              <option value="{{ uname }}">{{ u.full_name or uname }} ({{ u.role }})</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Thời hạn hoàn thành</label>
+            <input name="thoi_han" id="edit_thoi_han" class="form-control" type="datetime-local">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Ghi chú</label>
+            <textarea name="ghi_chu" id="edit_ghi_chu" class="form-control" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+          <button type="submit" class="btn btn-brand">Lưu thay đổi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+function editConsultation(consultId, tieuDe, nhanVien, thoiHan, ghiChu) {
+  document.getElementById('edit_tieu_de').value = tieuDe || '';
+  document.getElementById('edit_nhan_vien').value = nhanVien || '';
+  
+  // Format datetime-local input (YYYY-MM-DDTHH:mm)
+  if (thoiHan) {
+    // Convert from format like "2025-11-04T15:19" to "2025-11-04T15:19"
+    let formattedDate = thoiHan;
+    if (formattedDate.length === 16 && formattedDate.indexOf('T') > 0) {
+      // Already in correct format
+    } else if (formattedDate.length > 16) {
+      formattedDate = formattedDate.substring(0, 16);
+    }
+    document.getElementById('edit_thoi_han').value = formattedDate;
+  } else {
+    document.getElementById('edit_thoi_han').value = '';
+  }
+  
+  document.getElementById('edit_ghi_chu').value = ghiChu || '';
+  
+  // Set form action
+  document.getElementById('editConsultationForm').action = '/noi-bo/khach-hang/{{ customer.ma_khach_hang }}/tu-van/' + consultId + '/sua';
+  
+  // Show modal
+  new bootstrap.Modal(document.getElementById('editConsultationModal')).show();
+}
+</script>
 {% endblock %}
 
 

@@ -6,134 +6,344 @@
     "dia_chi_du_an": "Đường Lữ Gia, phường Lâm Viên -  Đà Lạt, Lâm Đồng",
     "images": [
       {
-        "id": "f2f07796c679413c8c54b03eac3afd18",
-        "filename": "exterior__Modern_4-story_myarchitectai_1755736044244_dfcf9762.jpg",
-        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/exterior__Modern_4-story_myarchitectai_1755736044244_dfcf9762.jpg",
-        "progress": "Hoàn thiện",
-        "uploaded_at": "2025-11-10T19:36:04",
+        "id": "d02d950a357349a1a70ae732a672e86a",
+        "filename": "z6892772499401_34b7816f3616905ec7b62e751e5a7022_e98e2843.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z6892772499401_34b7816f3616905ec7b62e751e5a7022_e98e2843.jpg",
+        "progress": "Tháo dỡ, san lấp mặt bằng",
+        "uploaded_at": "2025-12-16T11:21:49",
         "uploader": "Trung"
       },
       {
-        "id": "34fcab3f58f04d4f95f9c52d7ea87f29",
-        "filename": "z6928257114558_fc0d085871e6ac46230a0dee4637604a_72992287.jpg",
-        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z6928257114558_fc0d085871e6ac46230a0dee4637604a_72992287.jpg",
-        "progress": "Hoàn thiện",
-        "uploaded_at": "2025-11-10T19:36:04",
+        "id": "b7e8faa180bd4d6b9082e2bc057023ae",
+        "filename": "z6892772518192_201a2f7b910047ceaa5fcf47c06f06d5_f6defe39.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z6892772518192_201a2f7b910047ceaa5fcf47c06f06d5_f6defe39.jpg",
+        "progress": "Tháo dỡ, san lấp mặt bằng",
+        "uploaded_at": "2025-12-16T11:21:49",
         "uploader": "Trung"
       },
       {
-        "id": "9f459d7f2fd64cfa824a3b5792570741",
-        "filename": "hop-dong-tu-van-dau-tu-xay-dung_5fef72f8.jpg",
-        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/hop-dong-tu-van-dau-tu-xay-dung_5fef72f8.jpg",
-        "progress": "Tư vấn khách hàng",
-        "uploaded_at": "2025-11-10T19:40:31",
+        "id": "183070ba69a94a21995c79cb079d4f0b",
+        "filename": "z6882741314648_33a97e47ce07fbf9a4377b398f17caac_6a510ff2.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z6882741314648_33a97e47ce07fbf9a4377b398f17caac_6a510ff2.jpg",
+        "progress": "Tháo dỡ, san lấp mặt bằng",
+        "uploaded_at": "2025-12-16T11:21:49",
         "uploader": "Trung"
       },
       {
-        "id": "5788b4a0a70f4d738ee5ae0b36051d72",
-        "filename": "do-be-tong-nen-nha-xuong_3553a099.jpeg",
-        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/do-be-tong-nen-nha-xuong_3553a099.jpeg",
+        "id": "cdea3e80dfd14e6bab4037f1b8b63538",
+        "filename": "z6882741366338_b55ae66c81a234b1628aa34857b95e0c_08a7e53f.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z6882741366338_b55ae66c81a234b1628aa34857b95e0c_08a7e53f.jpg",
+        "progress": "Tháo dỡ, san lấp mặt bằng",
+        "uploaded_at": "2025-12-16T11:21:49",
+        "uploader": "Trung"
+      },
+      {
+        "id": "07ebbb0ad2ec431384e85e5ea6f7ae65",
+        "filename": "z7125985332604_a7a9de6c67287c73c20ba50e31077176_1699f776.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7125985332604_a7a9de6c67287c73c20ba50e31077176_1699f776.jpg",
+        "progress": "Hệ cọc móng",
+        "uploaded_at": "2025-12-16T11:27:08",
+        "uploader": "Trung"
+      },
+      {
+        "id": "dcbfb126ebaf4ff68011912b2956ac23",
+        "filename": "z7125357078611_9aa1eb5834d1185e045a1481348a7deb_3d6f3cfc.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7125357078611_9aa1eb5834d1185e045a1481348a7deb_3d6f3cfc.jpg",
+        "progress": "Hệ cọc móng",
+        "uploaded_at": "2025-12-16T11:27:08",
+        "uploader": "Trung"
+      },
+      {
+        "id": "911eea9ca36c4899930b48cd7c4023ef",
+        "filename": "z7125357087822_63a4e899a5c1c727c296b3280592e6fa_b66a8845.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7125357087822_63a4e899a5c1c727c296b3280592e6fa_b66a8845.jpg",
+        "progress": "Hệ cọc móng",
+        "uploaded_at": "2025-12-16T11:27:08",
+        "uploader": "Trung"
+      },
+      {
+        "id": "3b4b88b40e074b35bbda308eed8d92d9",
+        "filename": "z7125389073350_5cc799a27f63304f077bd9441b3afae1_a00c8339.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7125389073350_5cc799a27f63304f077bd9441b3afae1_a00c8339.jpg",
+        "progress": "Hệ cọc móng",
+        "uploaded_at": "2025-12-16T11:27:08",
+        "uploader": "Trung"
+      },
+      {
+        "id": "117508fdc07544558658411b7d1a1f3b",
+        "filename": "z7098140641589_dc182d1d063fccf85dcd41a827bd1f2e_1a64c5c3.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7098140641589_dc182d1d063fccf85dcd41a827bd1f2e_1a64c5c3.jpg",
+        "progress": "Hệ cọc móng",
+        "uploaded_at": "2025-12-16T11:27:08",
+        "uploader": "Trung"
+      },
+      {
+        "id": "5e38bf433f224424b844bd0f2d6a4454",
+        "filename": "z7085571389523_389d750d8facf50b846bebe2ec7ea021_c5e18a50.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7085571389523_389d750d8facf50b846bebe2ec7ea021_c5e18a50.jpg",
+        "progress": "Hệ cọc móng",
+        "uploaded_at": "2025-12-16T11:27:08",
+        "uploader": "Trung"
+      },
+      {
+        "id": "de2d3461a76e4c3c8d39d2f2b5960635",
+        "filename": "z7079663165444_2b7accad0e1ff5936afac495ee15c88c_3d89abfc.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7079663165444_2b7accad0e1ff5936afac495ee15c88c_3d89abfc.jpg",
+        "progress": "Hệ cọc móng",
+        "uploaded_at": "2025-12-16T11:27:08",
+        "uploader": "Trung"
+      },
+      {
+        "id": "61db97b8723d4d96bf1329ae59a6acd3",
+        "filename": "z7030928942221_1cdb2560120fe1fdb418c40506f48d64_8393d56f.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7030928942221_1cdb2560120fe1fdb418c40506f48d64_8393d56f.jpg",
+        "progress": "Hệ cọc móng",
+        "uploaded_at": "2025-12-16T11:27:08",
+        "uploader": "Trung"
+      },
+      {
+        "id": "6ad16a7845004c7c976507c12974dfd7",
+        "filename": "z7023384606690_5d459401f2459881e36d51cb92d41af1_f40902e5.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7023384606690_5d459401f2459881e36d51cb92d41af1_f40902e5.jpg",
+        "progress": "Hệ cọc móng",
+        "uploaded_at": "2025-12-16T11:27:08",
+        "uploader": "Trung"
+      },
+      {
+        "id": "7042ab71c725440fb82c22ccda237e97",
+        "filename": "z6948894784556_be5b6df400cd90d9e137302bd22574b7_d02653dc.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z6948894784556_be5b6df400cd90d9e137302bd22574b7_d02653dc.jpg",
+        "progress": "Hệ cọc móng",
+        "uploaded_at": "2025-12-16T11:27:08",
+        "uploader": "Trung"
+      },
+      {
+        "id": "ea37a57314144057bf44a76624cf9ae6",
+        "filename": "z6942900292391_4d179e66dbdf023235b91c2952e1e62d_d7ff700e.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z6942900292391_4d179e66dbdf023235b91c2952e1e62d_d7ff700e.jpg",
+        "progress": "Hệ cọc móng",
+        "uploaded_at": "2025-12-16T11:27:08",
+        "uploader": "Trung"
+      },
+      {
+        "id": "145053a2d2e74a609e19529e8100b7ef",
+        "filename": "z6937315185582_afc70041d24d2b0dfbd53df557da57db_2b5caf30.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z6937315185582_afc70041d24d2b0dfbd53df557da57db_2b5caf30.jpg",
+        "progress": "Hệ cọc móng",
+        "uploaded_at": "2025-12-16T11:27:08",
+        "uploader": "Trung"
+      },
+      {
+        "id": "8183682ad34448d99ac47d5547b8ab3a",
+        "filename": "z6936899594402_d8c99ecad7235cbebf966a33007da766_f91b8f8c.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z6936899594402_d8c99ecad7235cbebf966a33007da766_f91b8f8c.jpg",
+        "progress": "Hệ cọc móng",
+        "uploaded_at": "2025-12-16T11:27:08",
+        "uploader": "Trung"
+      },
+      {
+        "id": "ee138fc6874341ab80434d040e306200",
+        "filename": "z7324617405012_0cbd2321593b4dcc47d655aaf0c82d54_60892b68.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7324617405012_0cbd2321593b4dcc47d655aaf0c82d54_60892b68.jpg",
         "progress": "Đổ sàn",
-        "uploaded_at": "2025-11-10T19:40:41",
+        "uploaded_at": "2025-12-16T11:33:48",
         "uploader": "Trung"
       },
       {
-        "id": "8b0a19f347c94d7d82aebedd403977da",
-        "filename": "xay-nha-phan-tho-phan-hoan-thien_1e48a51a.jpg",
-        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/xay-nha-phan-tho-phan-hoan-thien_1e48a51a.jpg",
+        "id": "a4be6b70c63540ceb155f16f6d595877",
+        "filename": "z7324601285189_532f59d40b312939b008b747503d02ec_13b307f3.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7324601285189_532f59d40b312939b008b747503d02ec_13b307f3.jpg",
+        "progress": "Đổ sàn",
+        "uploaded_at": "2025-12-16T11:33:48",
+        "uploader": "Trung"
+      },
+      {
+        "id": "d60c260103f442048d861c897d134719",
+        "filename": "z7314174237481_53dae345d6b5f84293dfdff330f17098_8e4edd17.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7314174237481_53dae345d6b5f84293dfdff330f17098_8e4edd17.jpg",
+        "progress": "Đổ sàn",
+        "uploaded_at": "2025-12-16T11:33:48",
+        "uploader": "Trung"
+      },
+      {
+        "id": "37eccca673b148c49e261e8bfafe0836",
+        "filename": "z7312160318149_0c84d3151b3a271ee2a6e6a9f0ca5bb7_4ff9b266.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7312160318149_0c84d3151b3a271ee2a6e6a9f0ca5bb7_4ff9b266.jpg",
+        "progress": "Đổ sàn",
+        "uploaded_at": "2025-12-16T11:33:48",
+        "uploader": "Trung"
+      },
+      {
+        "id": "c8d3844edb2e4500a7b0a6fd777d5386",
+        "filename": "z7312202625604_5bac455e02f062053921337aa2c3da59_f7c303d9.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7312202625604_5bac455e02f062053921337aa2c3da59_f7c303d9.jpg",
+        "progress": "Đổ sàn",
+        "uploaded_at": "2025-12-16T11:33:48",
+        "uploader": "Trung"
+      },
+      {
+        "id": "ab7b01a3c2f94f88994ee530bbfe95b3",
+        "filename": "z7303422803647_52a0123dd1ead6d172522c8419b07217_74605992.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7303422803647_52a0123dd1ead6d172522c8419b07217_74605992.jpg",
+        "progress": "Đổ sàn",
+        "uploaded_at": "2025-12-16T11:33:48",
+        "uploader": "Trung"
+      },
+      {
+        "id": "b43c166db27d4af9b8b3bf14764c4f09",
+        "filename": "z7270506788746_ff41f328a201cb0236b257b8bfc18f04_9c7912fe.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7270506788746_ff41f328a201cb0236b257b8bfc18f04_9c7912fe.jpg",
+        "progress": "Đổ sàn",
+        "uploaded_at": "2025-12-16T11:33:48",
+        "uploader": "Trung"
+      },
+      {
+        "id": "3aef75b038724e1cbe8cd0ed9bb70142",
+        "filename": "z7270506741810_382a0ebcbdec5ed8ac8490c1e309906a_6c8d0450.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7270506741810_382a0ebcbdec5ed8ac8490c1e309906a_6c8d0450.jpg",
+        "progress": "Đổ sàn",
+        "uploaded_at": "2025-12-16T11:33:48",
+        "uploader": "Trung"
+      },
+      {
+        "id": "e4d8ab432591405aafdaa9e9e033d105",
+        "filename": "z7256364556630_4845e4829a28046fdc8e0d456d931940_5fd16648.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7256364556630_4845e4829a28046fdc8e0d456d931940_5fd16648.jpg",
+        "progress": "Đổ sàn",
+        "uploaded_at": "2025-12-16T11:33:48",
+        "uploader": "Trung"
+      },
+      {
+        "id": "0ec79521049c4d5ab723c7679492f9e1",
+        "filename": "z7235310526882_57785d7c66f4a56068d7be02a9b82892_bba581e5.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7235310526882_57785d7c66f4a56068d7be02a9b82892_bba581e5.jpg",
+        "progress": "Đổ sàn",
+        "uploaded_at": "2025-12-16T11:33:48",
+        "uploader": "Trung"
+      },
+      {
+        "id": "cda8052eafe24c29acb6ab5d0f108aec",
+        "filename": "z7225735520347_6f7b878ec7d97bc20102e4af1d2c1758_5b9021d8.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7225735520347_6f7b878ec7d97bc20102e4af1d2c1758_5b9021d8.jpg",
+        "progress": "Đổ sàn",
+        "uploaded_at": "2025-12-16T11:33:48",
+        "uploader": "Trung"
+      },
+      {
+        "id": "6c3922b8a6b1400499a40708a75b8282",
+        "filename": "z7194017401033_f0a65f10de4eefae05872ee5da88a795_536198bd.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7194017401033_f0a65f10de4eefae05872ee5da88a795_536198bd.jpg",
+        "progress": "Đổ sàn",
+        "uploaded_at": "2025-12-16T11:33:48",
+        "uploader": "Trung"
+      },
+      {
+        "id": "93ead96345d3418e97ca598858b209d3",
+        "filename": "z7193858151418_0c916b04f93c13100224bbd43eb1c912_7f0dabda.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7193858151418_0c916b04f93c13100224bbd43eb1c912_7f0dabda.jpg",
+        "progress": "Đổ sàn",
+        "uploaded_at": "2025-12-16T11:33:48",
+        "uploader": "Trung"
+      },
+      {
+        "id": "65b2d379c65244ed9191a4b9fc2d5476",
+        "filename": "z7193769719296_f5e58be1bdaec965b3fd231095e53c08_8a1dd2ca.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7193769719296_f5e58be1bdaec965b3fd231095e53c08_8a1dd2ca.jpg",
+        "progress": "Đổ sàn",
+        "uploaded_at": "2025-12-16T11:33:48",
+        "uploader": "Trung"
+      },
+      {
+        "id": "2a57e774f0d1408fbe9f0fcc4bdd136a",
+        "filename": "z7190787108886_7fccfae094f0fadc9c33a9ecf8c79b98_dda92455.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7190787108886_7fccfae094f0fadc9c33a9ecf8c79b98_dda92455.jpg",
+        "progress": "Đổ sàn",
+        "uploaded_at": "2025-12-16T11:33:48",
+        "uploader": "Trung"
+      },
+      {
+        "id": "d85159086bdd4b6b9bda13dc4903c900",
+        "filename": "z7186819543015_981993c6c2cc95f90ecdfc2d32aabf3c_ba36825b.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7186819543015_981993c6c2cc95f90ecdfc2d32aabf3c_ba36825b.jpg",
+        "progress": "Đổ sàn",
+        "uploaded_at": "2025-12-16T11:33:48",
+        "uploader": "Trung"
+      },
+      {
+        "id": "e0856692e946434dacfe4fc8ab74859d",
+        "filename": "z7140047785749_5b3e5194854dcdf3f3809b8be10c62af_9582a22b.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7140047785749_5b3e5194854dcdf3f3809b8be10c62af_9582a22b.jpg",
+        "progress": "Đổ sàn",
+        "uploaded_at": "2025-12-16T11:33:48",
+        "uploader": "Trung"
+      },
+      {
+        "id": "b5e7d029a6c942eda69948908deeb179",
+        "filename": "z7126017065534_e80f962e3f2dd43a0d2b576407295348_2b7f4666.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7126017065534_e80f962e3f2dd43a0d2b576407295348_2b7f4666.jpg",
+        "progress": "Đổ sàn",
+        "uploaded_at": "2025-12-16T11:33:48",
+        "uploader": "Trung"
+      },
+      {
+        "id": "ff6393fdb2924cd58a1a174308179d1c",
+        "filename": "z7331076810620_36d659892b7a4bd447399322f2cbb3d0_c42deba8.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7331076810620_36d659892b7a4bd447399322f2cbb3d0_c42deba8.jpg",
         "progress": "Xây tường vây",
-        "uploaded_at": "2025-11-10T19:53:36",
+        "uploaded_at": "2025-12-16T11:34:03",
         "uploader": "Trung"
       },
       {
-        "id": "59012cb0ddf249bb84376d4ad6b4fa59",
-        "filename": "z6960664947996_2b7923591e01e29299aca93fe39a4cd3_72367bf3.jpg",
-        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z6960664947996_2b7923591e01e29299aca93fe39a4cd3_72367bf3.jpg",
-        "progress": "Điện nước",
-        "uploaded_at": "2025-11-10T19:53:49",
+        "id": "bbdf3599169a4cb7995c1075cb954d41",
+        "filename": "z7218695108800_270d40a57b03a2044cfda7144b595007_d0c13576.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7218695108800_270d40a57b03a2044cfda7144b595007_d0c13576.jpg",
+        "progress": "Xây tường vây",
+        "uploaded_at": "2025-12-16T11:34:03",
+        "uploader": "Trung"
+      },
+      {
+        "id": "47d2962afb164c20aaea9921683f1a8f",
+        "filename": "z7214869148218_a9b23f71f48219fc7bfe0cfeaf2d9fe4_372663d8.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7214869148218_a9b23f71f48219fc7bfe0cfeaf2d9fe4_372663d8.jpg",
+        "progress": "Xây tường vây",
+        "uploaded_at": "2025-12-16T11:34:03",
+        "uploader": "Trung"
+      },
+      {
+        "id": "94f9bd07a1164a86a60459ca6772581a",
+        "filename": "z7209393230354_a090cda7d2eee8f11a7c1d283571ccfd_e4419f2e.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7209393230354_a090cda7d2eee8f11a7c1d283571ccfd_e4419f2e.jpg",
+        "progress": "Xây tường vây",
+        "uploaded_at": "2025-12-16T11:34:03",
+        "uploader": "Trung"
+      },
+      {
+        "id": "1449c06b558342239fd916cd490efcd5",
+        "filename": "z7162809830615_60031c734d9ef7ecd9f32bc6bca56da9_c3718350.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7162809830615_60031c734d9ef7ecd9f32bc6bca56da9_c3718350.jpg",
+        "progress": "Xây tường vây",
+        "uploaded_at": "2025-12-16T11:34:03",
+        "uploader": "Trung"
+      },
+      {
+        "id": "35990eb153804432819f7df4ba384aef",
+        "filename": "z7159137921593_8111dc06a00e89a6a34f08e64dfe22aa_0234b6b8.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7159137921593_8111dc06a00e89a6a34f08e64dfe22aa_0234b6b8.jpg",
+        "progress": "Xây tường vây",
+        "uploaded_at": "2025-12-16T11:34:03",
+        "uploader": "Trung"
+      },
+      {
+        "id": "0268259829a94cf2b3ebe05d828d63e6",
+        "filename": "z7329398017219_6a15ccec08eb560ef3158a394b47eadd_3433d33d.jpg",
+        "path": "projects/171dd8822f2542fcbfdac04be4e6c504/z7329398017219_6a15ccec08eb560ef3158a394b47eadd_3433d33d.jpg",
+        "progress": "Xây tường vây",
+        "uploaded_at": "2025-12-16T11:43:18",
         "uploader": "Trung"
       }
     ],
     "created_at": "2025-11-10T19:35:12",
     "created_by": "Trung",
     "ngay_khoi_cong": "2025-08-28"
-  },
-  {
-    "id": "dc5fef7d3ff64120a503e6fc86c97fa9",
-    "chu_dau_tu": "Nguyễn Văn A",
-    "quy_mo_du_an": "100m2, 1 tầng",
-    "dia_chi_du_an": "Đường Lữ Gia, phường Lâm Viên -  Đà Lạt, Lâm Đồng",
-    "images": [
-      {
-        "id": "6416192e7cff4d93b3ddc7a30f72c20b",
-        "filename": "edited-adjusted-1756513809392_980cdd4d.png",
-        "path": "projects/dc5fef7d3ff64120a503e6fc86c97fa9/edited-adjusted-1756513809392_980cdd4d.png",
-        "progress": "Tô tường",
-        "uploaded_at": "2025-11-10T19:42:08",
-        "uploader": "Trung"
-      },
-      {
-        "id": "e5f6ca03be7340799e869a2a5b9f4165",
-        "filename": "edited-edited-1756513767258_16fa69bc.png",
-        "path": "projects/dc5fef7d3ff64120a503e6fc86c97fa9/edited-edited-1756513767258_16fa69bc.png",
-        "progress": "Tô tường",
-        "uploaded_at": "2025-11-10T19:42:08",
-        "uploader": "Trung"
-      },
-      {
-        "id": "48f9d8623e6c44d4b32c29140d227080",
-        "filename": "z6960664947996_2b7923591e01e29299aca93fe39a4cd3_bb092cb8.jpg",
-        "path": "projects/dc5fef7d3ff64120a503e6fc86c97fa9/z6960664947996_2b7923591e01e29299aca93fe39a4cd3_bb092cb8.jpg",
-        "progress": "Tô tường",
-        "uploaded_at": "2025-11-10T19:42:08",
-        "uploader": "Trung"
-      },
-      {
-        "id": "f8ad7f911fa04864ba8a79ed1f536d63",
-        "filename": "xay-nha-phan-tho-13_53751b3f.jpg",
-        "path": "projects/dc5fef7d3ff64120a503e6fc86c97fa9/xay-nha-phan-tho-13_53751b3f.jpg",
-        "progress": "Hoàn thiện",
-        "uploaded_at": "2025-11-10T19:45:20",
-        "uploader": "Trung"
-      },
-      {
-        "id": "e333170214a44d48acd70dfb8e628e9e",
-        "filename": "xay-nha-phan-tho-phan-hoan-thien_e46c5bc2.jpg",
-        "path": "projects/dc5fef7d3ff64120a503e6fc86c97fa9/xay-nha-phan-tho-phan-hoan-thien_e46c5bc2.jpg",
-        "progress": "Hoàn thiện",
-        "uploaded_at": "2025-11-10T19:45:20",
-        "uploader": "Trung"
-      }
-    ],
-    "created_at": "2025-11-10T19:41:51",
-    "created_by": "Trung",
-    "ngay_khoi_cong": "2025-09-10"
-  },
-  {
-    "id": "326a06a9be1b4198a6b393bf7c1d83bc",
-    "chu_dau_tu": "Nguyễn Văn B",
-    "quy_mo_du_an": "100m2, 1 tầng",
-    "dia_chi_du_an": "Đường Lữ Gia, phường Lâm Viên -  Đà Lạt, Lâm Đồng",
-    "images": [
-      {
-        "id": "b5caf39bd3aa48e89342442bfe75ddd4",
-        "filename": "dich-vu-tu-van-thiet-ke-xay-dung-nha-o-mien-phi-hieu-qua_03f7b1d9.jpg",
-        "path": "projects/326a06a9be1b4198a6b393bf7c1d83bc/dich-vu-tu-van-thiet-ke-xay-dung-nha-o-mien-phi-hieu-qua_03f7b1d9.jpg",
-        "progress": "Tư vấn khách hàng",
-        "uploaded_at": "2025-11-10T19:47:45",
-        "uploader": "Trung"
-      },
-      {
-        "id": "aeb1586888494751a3195532aa6bce51",
-        "filename": "Tu-van-xay-dung_5e7ce040.jpg",
-        "path": "projects/326a06a9be1b4198a6b393bf7c1d83bc/Tu-van-xay-dung_5e7ce040.jpg",
-        "progress": "Tư vấn khách hàng",
-        "uploaded_at": "2025-11-10T19:47:45",
-        "uploader": "Trung"
-      }
-    ],
-    "created_at": "2025-11-10T19:46:51",
-    "created_by": "Trung",
-    "ngay_khoi_cong": "2025-10-31"
   }
 ]

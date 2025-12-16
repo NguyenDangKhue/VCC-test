@@ -7,6 +7,8 @@ import json
 import os
 import uuid
 from datetime import datetime
+from PIL import Image
+import io
 
 
 def create_app() -> Flask:
@@ -870,7 +872,104 @@ def create_app() -> Flask:
         flash("Đã xoá tệp đính kèm.", "info")
         return redirect(url_for("customers_detail", ma_kh=ma_kh))
 
+    @app.route("/noi-bo/khach-hang/<ma_kh>/tu-van/<consult_id>/sua", methods=["POST"])
+    @admin_required
+    def consultation_edit(ma_kh, consult_id):
+        customers = load_customers()
+        customer = _find_customer(customers, ma_kh)
+        if not customer:
+            flash("Không tìm thấy khách hàng.", "danger")
+            return redirect(url_for("customers_list"))
+        item = _find_consultation(customer, consult_id)
+        if not item:
+            flash("Không tìm thấy yêu cầu.", "danger")
+            return redirect(url_for("customers_detail", ma_kh=ma_kh))
+        form = request.form
+        item["tieu_de"] = form.get("tieu_de", "").strip() or "Yêu cầu tư vấn"
+        item["nhan_vien"] = form.get("nhan_vien", "").strip()
+        item["thoi_han"] = form.get("thoi_han", "").strip()
+        item["ghi_chu"] = form.get("ghi_chu", "").strip()
+        save_customers(customers)
+        flash("Đã cập nhật yêu cầu tư vấn.", "success")
+        return redirect(url_for("customers_detail", ma_kh=ma_kh))
+
+    @app.route("/noi-bo/khach-hang/<ma_kh>/tu-van/<consult_id>/xoa", methods=["POST"])
+    @admin_required
+    def consultation_delete(ma_kh, consult_id):
+        customers = load_customers()
+        customer = _find_customer(customers, ma_kh)
+        if not customer:
+            flash("Không tìm thấy khách hàng.", "danger")
+            return redirect(url_for("customers_list"))
+        consultations = customer.get("consultations", [])
+        # Find and remove the consultation
+        original_count = len(consultations)
+        customer["consultations"] = [c for c in consultations if c.get("id") != consult_id]
+        if len(customer["consultations"]) < original_count:
+            # Also delete associated files
+            uploads_root = Path(app.config['UPLOAD_FOLDER']).resolve()
+            secure_ma = secure_filename(ma_kh)
+            target_dir = uploads_root / secure_ma / consult_id
+            if target_dir.exists() and str(target_dir).startswith(str(uploads_root)):
+                try:
+                    import shutil
+                    shutil.rmtree(target_dir)
+                except Exception:
+                    pass
+            save_customers(customers)
+            flash("Đã xóa yêu cầu tư vấn.", "info")
+        else:
+            flash("Không tìm thấy yêu cầu để xóa.", "warning")
+        return redirect(url_for("customers_detail", ma_kh=ma_kh))
+
     # -------- Construction Projects (Image Gallery) --------
+    
+    def resize_and_compress_image(image_file, max_width=1920, max_height=1080, quality=80):
+        """
+        Resize và compress hình ảnh để giảm dung lượng lưu trữ.
+        
+        Args:
+            image_file: File object từ request.files
+            max_width: Chiều rộng tối đa (mặc định 1920px - Full HD)
+            max_height: Chiều cao tối đa (mặc định 1080px - Full HD)
+            quality: Chất lượng JPEG từ 1-100 (mặc định 80 - cân bằng giữa chất lượng và dung lượng)
+        
+        Returns:
+            BytesIO object chứa hình ảnh đã được resize và compress
+        """
+        try:
+            # Mở hình ảnh
+            img = Image.open(image_file)
+            
+            # Convert RGBA sang RGB nếu cần (để lưu JPEG)
+            if img.mode in ('RGBA', 'LA', 'P'):
+                # Tạo background trắng cho ảnh có alpha channel
+                background = Image.new('RGB', img.size, (255, 255, 255))
+                if img.mode == 'P':
+                    img = img.convert('RGBA')
+                background.paste(img, mask=img.split()[-1] if img.mode in ('RGBA', 'LA') else None)
+                img = background
+            elif img.mode != 'RGB':
+                img = img.convert('RGB')
+            
+            # Tính toán kích thước mới (giữ nguyên tỷ lệ)
+            original_width, original_height = img.size
+            ratio = min(max_width / original_width, max_height / original_height)
+            
+            # Chỉ resize nếu ảnh lớn hơn kích thước tối đa
+            if ratio < 1:
+                new_width = int(original_width * ratio)
+                new_height = int(original_height * ratio)
+                img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+            
+            # Lưu vào BytesIO với compression
+            output = io.BytesIO()
+            img.save(output, format='JPEG', quality=quality, optimize=True)
+            output.seek(0)
+            return output
+        except Exception as e:
+            # Nếu có lỗi, trả về None để xử lý sau
+            return None
     @app.route("/noi-bo/du-an-hinh-anh")
     @admin_required
     def projects_list():
@@ -970,12 +1069,23 @@ def create_app() -> Flask:
                 # Generate unique filename to avoid conflicts
                 file_id = uuid.uuid4().hex[:8]
                 name_parts = filename.rsplit('.', 1)
+                # Luôn lưu dưới dạng .jpg sau khi resize/compress
                 if len(name_parts) == 2:
-                    unique_filename = f"{name_parts[0]}_{file_id}.{name_parts[1]}"
+                    unique_filename = f"{name_parts[0]}_{file_id}.jpg"
                 else:
-                    unique_filename = f"{filename}_{file_id}"
+                    unique_filename = f"{filename}_{file_id}.jpg"
+                
+                # Resize và compress hình ảnh
+                processed_image = resize_and_compress_image(f, max_width=1920, max_height=1080, quality=80)
+                if processed_image is None:
+                    # Nếu không xử lý được, bỏ qua file này
+                    continue
+                
                 dest = project_dir / unique_filename
-                f.save(str(dest))
+                # Lưu file đã được resize và compress
+                with open(dest, 'wb') as out_file:
+                    out_file.write(processed_image.read())
+                
                 # Get progress from form (same name for all images or per-image)
                 progress = request.form.get("progress", progress_options[0] if progress_options else "")
                 rel_path = f"projects/{project_id}/{unique_filename}"
@@ -1323,11 +1433,13 @@ def create_app() -> Flask:
         if not mo_ta:
             mo_ta = f"{gia:,} VNĐ/m²".replace(",", ".")
         vat_tu = load_vat_tu()
+        if "xay_tho" not in vat_tu:
+            vat_tu["xay_tho"] = {}
         gia_key = str(gia)
-        if gia_key in vat_tu:
+        if gia_key in vat_tu["xay_tho"]:
             flash("Đơn giá này đã có dữ liệu vật tư.", "warning")
             return redirect(url_for("vat_tu_management"))
-        vat_tu[gia_key] = {
+        vat_tu["xay_tho"][gia_key] = {
             "gia": gia,
             "mo_ta": mo_ta,
             "categories": []
@@ -1340,8 +1452,8 @@ def create_app() -> Flask:
     @admin_required
     def vat_tu_delete_gia(gia_key):
         vat_tu = load_vat_tu()
-        if gia_key in vat_tu:
-            del vat_tu[gia_key]
+        if "xay_tho" in vat_tu and gia_key in vat_tu["xay_tho"]:
+            del vat_tu["xay_tho"][gia_key]
             save_vat_tu(vat_tu)
             flash("Đã xóa đơn giá và dữ liệu vật tư.", "info")
         return redirect(url_for("vat_tu_management"))
@@ -1354,14 +1466,14 @@ def create_app() -> Flask:
             flash("Tên danh mục không được để trống.", "warning")
             return redirect(url_for("vat_tu_management"))
         vat_tu = load_vat_tu()
-        if gia_key not in vat_tu:
+        if "xay_tho" not in vat_tu or gia_key not in vat_tu["xay_tho"]:
             flash("Không tìm thấy đơn giá.", "danger")
             return redirect(url_for("vat_tu_management"))
         new_category = {
             "name": name,
             "items": []
         }
-        vat_tu[gia_key]["categories"].append(new_category)
+        vat_tu["xay_tho"][gia_key]["categories"].append(new_category)
         save_vat_tu(vat_tu)
         flash("Đã thêm danh mục.", "success")
         return redirect(url_for("vat_tu_management"))
@@ -1374,10 +1486,10 @@ def create_app() -> Flask:
             flash("Tên danh mục không được để trống.", "warning")
             return redirect(url_for("vat_tu_management"))
         vat_tu = load_vat_tu()
-        if gia_key not in vat_tu or cat_index >= len(vat_tu[gia_key]["categories"]):
+        if "xay_tho" not in vat_tu or gia_key not in vat_tu["xay_tho"] or cat_index >= len(vat_tu["xay_tho"][gia_key]["categories"]):
             flash("Không tìm thấy danh mục.", "danger")
             return redirect(url_for("vat_tu_management"))
-        vat_tu[gia_key]["categories"][cat_index]["name"] = name
+        vat_tu["xay_tho"][gia_key]["categories"][cat_index]["name"] = name
         save_vat_tu(vat_tu)
         flash("Đã cập nhật danh mục.", "success")
         return redirect(url_for("vat_tu_management"))
@@ -1386,10 +1498,10 @@ def create_app() -> Flask:
     @admin_required
     def vat_tu_delete_category(gia_key, cat_index):
         vat_tu = load_vat_tu()
-        if gia_key not in vat_tu or cat_index >= len(vat_tu[gia_key]["categories"]):
+        if "xay_tho" not in vat_tu or gia_key not in vat_tu["xay_tho"] or cat_index >= len(vat_tu["xay_tho"][gia_key]["categories"]):
             flash("Không tìm thấy danh mục.", "danger")
             return redirect(url_for("vat_tu_management"))
-        vat_tu[gia_key]["categories"].pop(cat_index)
+        vat_tu["xay_tho"][gia_key]["categories"].pop(cat_index)
         save_vat_tu(vat_tu)
         flash("Đã xóa danh mục.", "info")
         return redirect(url_for("vat_tu_management"))
@@ -1403,14 +1515,14 @@ def create_app() -> Flask:
             flash("Tên vật tư không được để trống.", "warning")
             return redirect(url_for("vat_tu_management"))
         vat_tu = load_vat_tu()
-        if gia_key not in vat_tu or cat_index >= len(vat_tu[gia_key]["categories"]):
+        if "xay_tho" not in vat_tu or gia_key not in vat_tu["xay_tho"] or cat_index >= len(vat_tu["xay_tho"][gia_key]["categories"]):
             flash("Không tìm thấy danh mục.", "danger")
             return redirect(url_for("vat_tu_management"))
         new_item = {
             "ten": ten,
             "chi_tiet": chi_tiet
         }
-        vat_tu[gia_key]["categories"][cat_index]["items"].append(new_item)
+        vat_tu["xay_tho"][gia_key]["categories"][cat_index]["items"].append(new_item)
         save_vat_tu(vat_tu)
         flash("Đã thêm vật tư.", "success")
         return redirect(url_for("vat_tu_management"))
@@ -1424,13 +1536,14 @@ def create_app() -> Flask:
             flash("Tên vật tư không được để trống.", "warning")
             return redirect(url_for("vat_tu_management"))
         vat_tu = load_vat_tu()
-        if (gia_key not in vat_tu or 
-            cat_index >= len(vat_tu[gia_key]["categories"]) or
-            item_index >= len(vat_tu[gia_key]["categories"][cat_index]["items"])):
+        if ("xay_tho" not in vat_tu or 
+            gia_key not in vat_tu["xay_tho"] or
+            cat_index >= len(vat_tu["xay_tho"][gia_key]["categories"]) or
+            item_index >= len(vat_tu["xay_tho"][gia_key]["categories"][cat_index]["items"])):
             flash("Không tìm thấy vật tư.", "danger")
             return redirect(url_for("vat_tu_management"))
-        vat_tu[gia_key]["categories"][cat_index]["items"][item_index]["ten"] = ten
-        vat_tu[gia_key]["categories"][cat_index]["items"][item_index]["chi_tiet"] = chi_tiet
+        vat_tu["xay_tho"][gia_key]["categories"][cat_index]["items"][item_index]["ten"] = ten
+        vat_tu["xay_tho"][gia_key]["categories"][cat_index]["items"][item_index]["chi_tiet"] = chi_tiet
         save_vat_tu(vat_tu)
         flash("Đã cập nhật vật tư.", "success")
         return redirect(url_for("vat_tu_management"))
@@ -1439,12 +1552,13 @@ def create_app() -> Flask:
     @admin_required
     def vat_tu_delete_item(gia_key, cat_index, item_index):
         vat_tu = load_vat_tu()
-        if (gia_key not in vat_tu or 
-            cat_index >= len(vat_tu[gia_key]["categories"]) or
-            item_index >= len(vat_tu[gia_key]["categories"][cat_index]["items"])):
+        if ("xay_tho" not in vat_tu or 
+            gia_key not in vat_tu["xay_tho"] or
+            cat_index >= len(vat_tu["xay_tho"][gia_key]["categories"]) or
+            item_index >= len(vat_tu["xay_tho"][gia_key]["categories"][cat_index]["items"])):
             flash("Không tìm thấy vật tư.", "danger")
             return redirect(url_for("vat_tu_management"))
-        vat_tu[gia_key]["categories"][cat_index]["items"].pop(item_index)
+        vat_tu["xay_tho"][gia_key]["categories"][cat_index]["items"].pop(item_index)
         save_vat_tu(vat_tu)
         flash("Đã xóa vật tư.", "info")
         return redirect(url_for("vat_tu_management"))
@@ -1454,10 +1568,10 @@ def create_app() -> Flask:
     def vat_tu_update_mo_ta(gia_key):
         mo_ta = request.form.get("mo_ta", "").strip()
         vat_tu = load_vat_tu()
-        if gia_key not in vat_tu:
+        if "xay_tho" not in vat_tu or gia_key not in vat_tu["xay_tho"]:
             flash("Không tìm thấy đơn giá.", "danger")
             return redirect(url_for("vat_tu_management"))
-        vat_tu[gia_key]["mo_ta"] = mo_ta
+        vat_tu["xay_tho"][gia_key]["mo_ta"] = mo_ta
         save_vat_tu(vat_tu)
         flash("Đã cập nhật mô tả.", "success")
         return redirect(url_for("vat_tu_management"))
